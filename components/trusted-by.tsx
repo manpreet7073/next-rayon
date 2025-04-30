@@ -49,7 +49,7 @@ export function TrustedBy() {
 
   // Company logos - in a real implementation, these would be actual company logos
   const companies = [
-    { name: "TechCorp", logo: "/placeholder.svg?height=60&width=120" },
+    { name: "TechCorp", logo: "/Google.png?height=80&width=150" },
     { name: "InnovateTech", logo: "/placeholder.svg?height=60&width=120" },
     { name: "GlobalSolutions", logo: "/placeholder.svg?height=60&width=120" },
     { name: "FutureSystems", logo: "/placeholder.svg?height=60&width=120" },

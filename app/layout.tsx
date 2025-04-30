@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import Head from "next/head"  // Import the Head component
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,9 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
+        {/* Add favicon in the head tag */}
+        <Head>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
+        
         <script
           dangerouslySetInnerHTML={{
             __html: `
