@@ -1,49 +1,42 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Manrope } from "next/font/google"
 import "./globals.css"
+import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
-import Head from "next/head"  // Import the Head component
+import FloatingCTA from "@/components/floating-cta"
 
-const inter = Inter({ subsets: ["latin"] })
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+})
 
 export const metadata: Metadata = {
-  title: "Rayon Web - Modern Web Solutions",
-  description: "We create modern web solutions for businesses of all sizes",
-  keywords: ["web development", "design", "digital solutions", "next.js"],
+  title: "Rayon Web Solutions | Your Vision, Our Code",
+  description:
+    "Turning Ideas into Reality - Web Development, App Development, DevOps & Cloud, UI/UX Design, LMS & Integration, QA & Automation",
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
-        {/* Add favicon in the head tag */}
-        <Head>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
+      <body
+        className={`${manrope.variable} font-sans bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100 min-h-screen`}
+      >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <div className="relative">
+            <Navbar />
+            <main className="pt-20">{children}</main>
+            <FloatingCTA />
+            <Footer />
+          </div>
         </ThemeProvider>
-        
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if (typeof window !== 'undefined') {
-                window.history.scrollRestoration = 'manual';
-                
-                // Reset scroll position on page load
-                window.addEventListener('load', function() {
-                  window.scrollTo(0, 0);
-                });
-              }
-            `,
-          }}
-        />
       </body>
     </html>
   )

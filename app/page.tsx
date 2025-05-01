@@ -1,27 +1,19 @@
-import { Navbar } from "@/components/navbar"
-import { Hero } from "@/components/hero"
-import { About } from "@/components/about"
-import { Services } from "@/components/services"
-import { Testimonials } from "@/components/testimonials"
-import { Showcase } from "@/components/showcase"
-import { Contact } from "@/components/contact"
-import { Footer } from "@/components/footer"
-import { TrustedBy } from "@/components/trusted-by"
-import { DigitalSectors } from "@/components/digital-sectors"
+import Hero from "@/components/home/hero"
+import FeaturedServices from "@/components/home/featured-services"
+import RecentProjects from "@/components/home/recent-projects"
+import Testimonials from "@/components/home/testimonials"
+import ClientLogos from "@/components/home/client-logos"
+import CTASection from "@/components/home/cta-section"
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Navbar />
+    <div className="flex flex-col gap-20 pb-20">
       <Hero />
-      <TrustedBy />
-      <About />
-      <Services />
-      <DigitalSectors />
+      <FeaturedServices />
+      <RecentProjects />
       <Testimonials />
-      <Showcase />
-      <Contact />
-      <Footer />
-    </main>
+      <ClientLogos />
+      <CTASection />
+    </div>
   )
 }

@@ -1,134 +1,318 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { ChevronDown, Menu, X, Code, Smartphone, Cloud, Palette, BookOpen, TestTube } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
-import { ModeToggle } from "./mode-toggle"
-import { usePathname, useRouter } from "next/navigation"
 
-export function Navbar() {
+const services = [
+  {
+    name: "Web Development",
+    href: "/services/web-development",
+    icon: <Code className="h-5 w-5" />,
+    subServices: [
+      { name: "Custom Website Design", href: "/services/web-development/custom-website-design" },
+      { name: "E-commerce Solutions", href: "/services/web-development/ecommerce-solutions" },
+      { name: "CMS Integration", href: "/services/web-development/cms-integration" },
+    ],
+  },
+  {
+    name: "App Development",
+    href: "/services/app-development",
+    icon: <Smartphone className="h-5 w-5" />,
+    subServices: [
+      { name: "Android & iOS Apps", href: "/services/app-development/mobile-apps" },
+      { name: "Progressive Web Apps", href: "/services/app-development/progressive-web-apps" },
+      { name: "Cross-Platform Apps", href: "/services/app-development/cross-platform-apps" },
+    ],
+  },
+  {
+    name: "DevOps & Cloud",
+    href: "/services/devops-cloud",
+    icon: <Cloud className="h-5 w-5" />,
+    subServices: [
+      { name: "Cloud Setup", href: "/services/devops-cloud/cloud-setup" },
+      { name: "CI/CD Pipelines", href: "/services/devops-cloud/ci-cd-pipelines" },
+      { name: "Docker & Kubernetes", href: "/services/devops-cloud/docker-kubernetes" },
+    ],
+  },
+  {
+    name: "UI/UX Design",
+    href: "/services/ui-ux-design",
+    icon: <Palette className="h-5 w-5" />,
+    subServices: [
+      { name: "Wireframes & Prototyping", href: "/services/ui-ux-design/wireframes-prototyping" },
+      { name: "Web & Mobile App Design", href: "/services/ui-ux-design/web-mobile-design" },
+      { name: "Design Systems", href: "/services/ui-ux-design/design-systems" },
+    ],
+  },
+  {
+    name: "LMS & Integration",
+    href: "/services/lms-integration",
+    icon: <BookOpen className="h-5 w-5" />,
+    subServices: [
+      { name: "Custom LMS", href: "/services/lms-integration/custom-lms" },
+      { name: "Payment Integration", href: "/services/lms-integration/payment-integration" },
+      { name: "CRM & API Integration", href: "/services/lms-integration/crm-api-integration" },
+    ],
+  },
+  {
+    name: "QA & Automation",
+    href: "/services/qa-automation",
+    icon: <TestTube className="h-5 w-5" />,
+    subServices: [
+      { name: "Manual Testing", href: "/services/qa-automation/manual-testing" },
+      { name: "Automated CI Tests", href: "/services/qa-automation/automated-ci-tests" },
+      { name: "Performance Audits", href: "/services/qa-automation/performance-audits" },
+    ],
+  },
+]
+
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services", dropdown: true, items: services },
+  { name: "Projects", href: "/projects" },
+  { name: "Blog", href: "/blog" },
+  { name: "Careers", href: "/careers" },
+  { name: "Contact", href: "/contact" },
+]
+
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
+      setScrolled(window.scrollY > 10)
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const toggleMenu = () => setIsOpen(!isOpen)
+  useEffect(() => {
+    setIsOpen(false)
+    setOpenDropdown(null)
+  }, [pathname])
 
-  // Function to handle navigation with scroll reset
-  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
-    router.push(href)
-    window.scrollTo(0, 0)
-  }
-
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/services", label: "Services" },
-    { href: "/showcase", label: "Showcase" },
-    { href: "/training", label: "Training" },
-    { href: "/contact", label: "Contact" },
-  ]
-
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/"
-    return pathname.startsWith(href)
+  const toggleDropdown = (name: string) => {
+    setOpenDropdown(openDropdown === name ? null : name)
   }
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/80 backdrop-blur-md shadow-md" : "bg-transparent"
-      }`}
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled ? "bg-gray-900/80 backdrop-blur-lg shadow-lg" : "bg-transparent",
+      )}
     >
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" onClick={(e) => handleNavigation(e, "/")} className="text-2xl font-bold">
-          Rayon<span className="text-primary">Web</span>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={(e) => {
-                // Only use custom navigation for internal links, not hash links
-                if (!link.href.startsWith("#")) {
-                  handleNavigation(e, link.href)
-                }
-              }}
-              className={`text-sm font-medium transition-colors duration-300 ${
-                isActive(link.href) ? "text-primary" : "text-foreground/80 hover:text-primary"
-              }`}
-            >
-              {link.label}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          <div className="flex-shrink-0">
+            <Link href="/" className="flex items-center">
+              <span className="text-2xl font-bold gradient-text">Rayon</span>
+              <span className="ml-1 text-xl font-light">Web Solutions</span>
             </Link>
-          ))}
-          <ModeToggle />
-        </nav>
+          </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex items-center md:hidden">
-          <ModeToggle />
-          <button onClick={toggleMenu} className="ml-4 p-2 text-foreground focus:outline-none" aria-label="Toggle menu">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <div key={link.name} className="relative group">
+                {link.dropdown ? (
+                  <button
+                    onClick={() => toggleDropdown(link.name)}
+                    className={cn(
+                      "flex items-center text-gray-300 hover:text-white transition-colors",
+                      pathname.startsWith(link.href) && "text-white font-medium",
+                    )}
+                  >
+                    {link.name}
+                    <ChevronDown
+                      className={cn(
+                        "ml-1 h-4 w-4 transition-transform duration-200",
+                        openDropdown === link.name && "rotate-180",
+                      )}
+                    />
+                  </button>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "text-gray-300 hover:text-white transition-colors",
+                      pathname === link.href && "text-white font-medium",
+                    )}
+                  >
+                    {link.name}
+                  </Link>
+                )}
+
+                {link.dropdown && (
+                  <AnimatePresence>
+                    {openDropdown === link.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute left-0 mt-2 w-72 rounded-xl glass-card overflow-hidden z-50"
+                      >
+                        <div className="py-2">
+                          {link.items?.map((item) => (
+                            <div key={item.name}>
+                              <div className="flex items-center px-4 py-3 hover:bg-gray-800/50 transition-colors">
+                                <span className="mr-3 text-purple-500">{item.icon}</span>
+                                <div>
+                                  <Link href={item.href} className="font-medium">
+                                    {item.name}
+                                  </Link>
+                                  <div className="mt-1">
+                                    <ul className="flex flex-wrap gap-2 text-xs text-gray-400">
+                                      {item.subServices.map((subService, idx) => (
+                                        <li key={idx}>
+                                          <Link
+                                            href={subService.href}
+                                            className="hover:text-purple-400 transition-colors"
+                                            onClick={(e) => e.stopPropagation()}
+                                          >
+                                            {subService.name}
+                                            {idx < item.subServices.length - 1 && <span className="ml-2">•</span>}
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          <div className="hidden lg:flex">
+            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full px-6">
+              Book a Consultation
+            </Button>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none"
+            >
+              <span className="sr-only">Open main menu</span>
+              {isOpen ? (
+                <X className="block h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="block h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-background/95 backdrop-blur-md"
+            className="lg:hidden bg-gray-900 overflow-hidden"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => {
-                    // Only use custom navigation for internal links, not hash links
-                    if (!link.href.startsWith("#")) {
-                      handleNavigation(e, link.href)
-                    }
-                    setIsOpen(false)
-                  }}
-                  className={`py-2 transition-colors duration-300 ${
-                    isActive(link.href) ? "text-primary" : "text-foreground/80 hover:text-primary"
-                  }`}
-                >
-                  {link.label}
-                </Link>
+                <div key={link.name}>
+                  {link.dropdown ? (
+                    <div>
+                      <button
+                        onClick={() => toggleDropdown(link.name)}
+                        className={cn(
+                          "w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium",
+                          pathname.startsWith(link.href)
+                            ? "bg-gray-800 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        )}
+                      >
+                        {link.name}
+                        <ChevronDown
+                          className={cn(
+                            "ml-1 h-4 w-4 transition-transform duration-200",
+                            openDropdown === link.name && "rotate-180",
+                          )}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {openDropdown === link.name && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="pl-4 space-y-1"
+                          >
+                            {link.items?.map((item) => (
+                              <div key={item.name} className="mt-2">
+                                <div className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                                  <span className="mr-3 text-purple-500">{item.icon}</span>
+                                  <Link href={item.href}>{item.name}</Link>
+                                </div>
+                                <div className="pl-8 mt-1">
+                                  <ul className="space-y-1">
+                                    {item.subServices.map((subService) => (
+                                      <li key={subService.name}>
+                                        <Link
+                                          href={subService.href}
+                                          className="block px-3 py-1 text-xs text-gray-400 hover:text-white"
+                                        >
+                                          {subService.name}
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              </div>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className={cn(
+                        "block px-3 py-2 rounded-md text-base font-medium",
+                        pathname === link.href
+                          ? "bg-gray-800 text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      )}
+                    >
+                      {link.name}
+                    </Link>
+                  )}
+                </div>
               ))}
+              <div className="pt-4">
+                <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full">
+                  Book a Consultation
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   )
 }
