@@ -1,11 +1,13 @@
-# -------- BUILD STAGE --------
+# -------- BUILD & RUNTIME STAGE --------
     FROM node:21-slim AS builder
 
     # Set working directory
     WORKDIR /app
     
-    # Install dependencies
+    # Copy package.json and package-lock.json first (for caching)
     COPY package.json package-lock.json ./
+    
+    # Install all dependencies (including dev dependencies)
     RUN npm install
     
     # Copy the rest of the app source
@@ -14,20 +16,18 @@
     # Build the Next.js app
     RUN npm run build
     
-    # -------- RUNTIME STAGE --------
+    # -------- FINAL IMAGE --------
     FROM node:21-slim AS runner
     
     # Set working directory
     WORKDIR /app
     
-    # Install only production dependencies
-    COPY package.json package-lock.json ./
-    RUN npm install --omit=dev
+    # Copy only production dependencies (from the builder)
+    COPY --from=builder /app/node_modules ./node_modules
     
     # Copy built assets and other required files
     COPY --from=builder /app/.next ./.next
     COPY --from=builder /app/public ./public
-    COPY --from=builder /app/node_modules ./node_modules
     COPY --from=builder /app/package.json ./package.json
     COPY --from=builder /app/next.config.js ./next.config.js
     COPY --from=builder /app/tsconfig.json ./tsconfig.json
