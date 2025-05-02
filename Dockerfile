@@ -1,41 +1,25 @@
-# -------- BUILD & RUNTIME STAGE --------
-    FROM node:21-slim AS builder
+# Use the official Node.js image
+FROM node:21-slim AS production
 
-    # Set working directory
-    WORKDIR /app
-    
-    # Copy package.json and package-lock.json
-    COPY package.json package-lock.json ./
-    
-    # Clear npm cache and set a faster registry
-    RUN npm cache clean --force
-    RUN npm config set registry https://registry.yarnpkg.com
-    
-    # Install dependencies with verbose logging
-    RUN npm install --loglevel verbose
-    
-    # Copy the rest of the app source
-    COPY . .
-    
-    # Build the Next.js app
-    RUN npm run build
-    
-    # -------- FINAL IMAGE --------
-    FROM node:21-slim AS runner
-    
-    # Set working directory
-    WORKDIR /app
-    
-    # Copy only production dependencies
-    COPY --from=builder /app/node_modules ./node_modules
-    COPY --from=builder /app/.next ./.next
-    COPY --from=builder /app/public ./public
-    COPY --from=builder /app/package.json ./package.json
-    COPY --from=builder /app/next.config.js ./next.config.js
-    COPY --from=builder /app/tsconfig.json ./tsconfig.json
-    
-    # Expose Next.js default port
-    EXPOSE 3000
-    
-    # Run the production server
-    CMD ["npm", "start"]
+# Set working directory
+WORKDIR /app
+
+# Copy only necessary files for the build
+COPY package.json ./
+
+# Clear npm cache, set faster registry, and install dependencies
+RUN npm cache clean --force && \
+    npm config set registry https://registry.yarnpkg.com && \
+    npm install --production --loglevel verbose
+
+# Copy the rest of the app source
+COPY . .
+
+# Build the Next.js app
+RUN npm run build
+
+# Expose Next.js default port
+EXPOSE 3000
+
+# Start the Next.js production server
+CMD ["npm", "start"]

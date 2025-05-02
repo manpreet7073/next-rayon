@@ -1,18 +1,6 @@
-services:
-  dev:
-    container_name: rayonweb-dev
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - node_modules:/app/node_modules
-    command: npm run dev
-    profiles:
-      - dev
+version: '3.8'
 
+services:
   prod:
     container_name: rayonweb-prod
     build:
@@ -22,9 +10,7 @@ services:
       - "3000:3000"
     restart: unless-stopped
     command: npm run start
-    profiles:
-      - prod
-    # ❌ No volumes in prod (avoids overwriting .next folder)
+    # No volumes in prod to avoid overwriting build artifacts like `.next` folder
 
 volumes:
   node_modules:
