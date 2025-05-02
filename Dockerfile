@@ -1,23 +1,37 @@
-# Use the official Node.js image from Docker Hub
-FROM node:21-alpine
+# -------- BUILD STAGE --------
+    FROM node:21-alpine AS builder
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the package.json and package-lock.json files
-COPY package.json package-lock.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of your application code
-COPY . .
-
-# Build the Next.js app (necessary for production)
-RUN npm run build
-
-# Expose the app port (Next.js default is 3000)
-EXPOSE 3000
-
-# Start the app
-CMD ["npm", "start"]
+    # Set working directory
+    WORKDIR /app
+    
+    # Install dependencies
+    COPY package.json package-lock.json ./
+    RUN npm install
+    
+    # Copy app source
+    COPY . .
+    
+    # Build the Next.js app
+    RUN npm run build
+    
+    # -------- RUNTIME STAGE --------
+    FROM node:21-alpine AS runner
+    
+    WORKDIR /app
+    
+    # Install only production dependencies
+    COPY package.json package-lock.json ./
+    RUN npm install --omit=dev
+    
+    # Copy built assets from builder stage
+    COPY --from=builder /app/.next ./.next
+    COPY --from=builder /app/public ./public
+    COPY --from=builder /app/node_modules ./node_modules
+    COPY --from=builder /app/package.json ./package.json
+    
+    # Expose Next.js default port
+    EXPOSE 3000
+    
+    # Run the production server
+    CMD ["npm", "start"]
+    
