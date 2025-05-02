@@ -8,10 +8,10 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 const testimonials = [
   {
     quote:
-      "Rayon Web Solutions transformed our business with a stunning e-commerce platform that increased our sales by 200% in just three months.",
-    author: "Sarah Johnson",
-    position: "CEO, Fashion Boutique",
-    image: "/placeholder.svg?height=100&width=100",
+      "We've been working with Rayon Web Solutions for over 5 years, and they’ve been an incredible tech partner throughout. Their team is sharp, reliable, and deeply skilled — from Django, PostgreSQL, and Heroku/AWS on the backend to ReactJS and Tailwind on the frontend",
+    author: "Varun Gulati",
+    position: "President & CTO",
+    image: "/2x2_1_FfnZ0k4.jpeg?height=100&width=100",
   },
   {
     quote:

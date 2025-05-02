@@ -46,7 +46,7 @@ export default function ContactInfo() {
             <h3 className="text-lg font-semibold mb-1">Email Address</h3>
             <p className="text-gray-400">
               <a href="mailto:info@rayonwebsolutions.com" className="hover:text-white transition-colors">
-                info@rayonwebsolutions.com
+                info@rayonweb.com
               </a>
             </p>
           </div>

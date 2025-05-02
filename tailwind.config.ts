@@ -8,6 +8,10 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
+  // Optimize by removing unused variants
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     container: {
       center: true,
@@ -76,6 +80,7 @@ const config: Config = {
       },
     },
   },
+  // Remove unused plugins
   plugins: [],
 }
 

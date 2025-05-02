@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Tilt } from "react-tilt"
+import Tilt from 'react-parallax-tilt';
 import { Code, Smartphone, Cloud, Palette, BookOpen, TestTube, ArrowRight } from "lucide-react"
 
 const services = [

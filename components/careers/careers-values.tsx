@@ -57,7 +57,7 @@ export default function CareersValues() {
               <div className="aspect-square rounded-xl overflow-hidden glass-card p-2">
                 <div className="w-full h-full rounded-lg overflow-hidden relative">
                   <Image
-                    src="/placeholder.svg?height=300&width=300"
+                    src="https://img.freepik.com/free-vector/flat-creativity-concept-illustration_52683-64279.jpg?height=300&width=300"
                     alt="Team Collaboration"
                     fill
                     className="object-cover"
@@ -66,18 +66,18 @@ export default function CareersValues() {
               </div>
               <div className="aspect-square rounded-xl overflow-hidden glass-card p-2 mt-8">
                 <div className="w-full h-full rounded-lg overflow-hidden relative">
-                  <Image src="/placeholder.svg?height=300&width=300" alt="Office Space" fill className="object-cover" />
+                  <Image src="https://img.freepik.com/free-vector/teamwork-people-with-puzzle-pieces-template_24877-54942.jpg?height=300&width=300" alt="Office Space" fill className="object-cover" />
                 </div>
               </div>
               <div className="aspect-square rounded-xl overflow-hidden glass-card p-2">
                 <div className="w-full h-full rounded-lg overflow-hidden relative">
-                  <Image src="/placeholder.svg?height=300&width=300" alt="Team Event" fill className="object-cover" />
+                  <Image src="https://img.freepik.com/free-vector/qualification-increase-course-skills-improvement-coaching_335657-3310.jpg?height=300&width=300" alt="Team Event" fill className="object-cover" />
                 </div>
               </div>
               <div className="aspect-square rounded-xl overflow-hidden glass-card p-2 mt-8">
                 <div className="w-full h-full rounded-lg overflow-hidden relative">
                   <Image
-                    src="/placeholder.svg?height=300&width=300"
+                    src="https://img.freepik.com/free-vector/businessman-meditating-his-chair-work_52683-61162.jpg?height=300&width=300"
                     alt="Work Environment"
                     fill
                     className="object-cover"

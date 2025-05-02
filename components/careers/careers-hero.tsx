@@ -43,7 +43,7 @@ export default function CareersHero() {
             <div className="aspect-video rounded-2xl overflow-hidden glass-card p-2">
               <div className="w-full h-full rounded-xl overflow-hidden relative">
                 <Image
-                  src="/placeholder.svg?height=600&width=800"
+                  src="https://img.freepik.com/free-photo/hiring-concept-with-people-coming-together_23-2149519873.jpg?height=600&width=800"
                   alt="Rayon Web Solutions Team"
                   fill
                   className="object-cover"

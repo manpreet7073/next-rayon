@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import React, { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,14 +9,62 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { CheckCircle } from "lucide-react"
 
 export default function ContactForm() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [service, setService] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    return (
+      form.name.trim() !== "" &&
+      form.email.includes("@") &&
+      form.subject.trim() !== "" &&
+      service.trim() !== "" &&
+      form.message.trim() !== ""
+    )
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitted(true)
-    }, 1000)
+    if (!validateForm()) {
+      setError("Please fill in all fields correctly.")
+      return
+    }
+
+    setIsLoading(true)
+    setError("")
+
+    const formData = new FormData()
+    formData.append("name", form.name)
+    formData.append("email", form.email)
+    formData.append("subject", `${form.subject} [Service: ${service}]`)
+    formData.append("message", form.message)
+
+    try {
+      const res = await fetch("https://api.rayonweb.com/api/send-email", {
+        method: "POST",
+        body: formData,
+      })
+
+      if (res.ok) {
+        setIsSubmitted(true)
+        setForm({ name: "", email: "", subject: "", message: "" })
+        setService("")
+      } else {
+        const errorData = await res.json()
+        setError(errorData?.message || "Something went wrong.")
+      }
+    } catch (err) {
+      setError("Failed to send message. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -47,13 +93,21 @@ export default function ContactForm() {
       ) : (
         <>
           <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
                   Your Name
                 </label>
-                <Input id="name" placeholder="John Doe" required className="bg-gray-800 border-gray-700 text-white" />
+                <Input
+                  id="name"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="John Doe"
+                  required
+                  className="bg-gray-800 border-gray-700 text-white"
+                />
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
@@ -62,6 +116,8 @@ export default function ContactForm() {
                 <Input
                   id="email"
                   type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="john@example.com"
                   required
                   className="bg-gray-800 border-gray-700 text-white"
@@ -75,6 +131,8 @@ export default function ContactForm() {
               </label>
               <Input
                 id="subject"
+                value={form.subject}
+                onChange={(e) => setForm({ ...form, subject: e.target.value })}
                 placeholder="How can we help you?"
                 required
                 className="bg-gray-800 border-gray-700 text-white"
@@ -85,18 +143,18 @@ export default function ContactForm() {
               <label htmlFor="service" className="block text-sm font-medium text-gray-400 mb-2">
                 Service You're Interested In
               </label>
-              <Select>
+              <Select onValueChange={setService}>
                 <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
                   <SelectValue placeholder="Select a service" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="web-development">Web Development</SelectItem>
-                  <SelectItem value="app-development">App Development</SelectItem>
-                  <SelectItem value="devops-cloud">DevOps & Cloud</SelectItem>
-                  <SelectItem value="ui-ux-design">UI/UX Design</SelectItem>
-                  <SelectItem value="lms-integration">LMS & Integration</SelectItem>
-                  <SelectItem value="qa-automation">QA & Automation</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value="Web Development">Web Development</SelectItem>
+                  <SelectItem value="App Development">App Development</SelectItem>
+                  <SelectItem value="DevOps & Cloud">DevOps & Cloud</SelectItem>
+                  <SelectItem value="UI/UX Design">UI/UX Design</SelectItem>
+                  <SelectItem value="LMS & Integration">LMS & Integration</SelectItem>
+                  <SelectItem value="QA & Automation">QA & Automation</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -107,6 +165,8 @@ export default function ContactForm() {
               </label>
               <Textarea
                 id="message"
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
                 placeholder="Tell us about your project or inquiry..."
                 required
                 className="bg-gray-800 border-gray-700 text-white min-h-[150px]"
@@ -115,9 +175,10 @@ export default function ContactForm() {
 
             <Button
               type="submit"
+              disabled={isLoading}
               className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-6"
             >
-              Send Message
+              {isLoading ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </>

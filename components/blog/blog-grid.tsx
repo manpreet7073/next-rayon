@@ -10,7 +10,7 @@ const blogPosts = [
   {
     title: "10 Essential Web Development Trends for 2023",
     excerpt: "Explore the latest trends in web development that are shaping the digital landscape in 2023.",
-    image: "/placeholder.svg?height=600&width=800",
+    image: "https://img.freepik.com/free-vector/flat-d-isometric-web-development-infographics-concept_126523-1540.jpg?height=600&width=800",
     category: "Web Development",
     date: "May 15, 2023",
     author: "Alex Johnson",
@@ -19,7 +19,7 @@ const blogPosts = [
   {
     title: "The Future of Mobile App Development",
     excerpt: "Discover how AI, AR, and other technologies are transforming the mobile app development landscape.",
-    image: "/placeholder.svg?height=600&width=800",
+    image: "https://img.freepik.com/free-vector/app-development-banner_33099-1720.jpg?height=600&width=800",
     category: "Mobile Apps",
     date: "April 28, 2023",
     author: "Sarah Chen",
@@ -28,7 +28,7 @@ const blogPosts = [
   {
     title: "DevOps Best Practices for Startups",
     excerpt: "Learn how startups can implement DevOps practices to streamline development and deployment processes.",
-    image: "/placeholder.svg?height=600&width=800",
+    image: "https://img.freepik.com/free-vector/gradient-devops-illustration_23-2149370940.jpg?height=600&width=800",
     category: "DevOps",
     date: "April 10, 2023",
     author: "David Kim",
@@ -37,7 +37,7 @@ const blogPosts = [
   {
     title: "UI/UX Design Principles for Better Conversion",
     excerpt: "Explore design principles that can help improve user engagement and conversion rates on your website.",
-    image: "/placeholder.svg?height=600&width=800",
+    image: "https://img.freepik.com/free-vector/gradient-ui-ux-background_23-2149052117.jpg?height=600&width=800",
     category: "UI/UX Design",
     date: "March 22, 2023",
     author: "Michael Rodriguez",
@@ -46,7 +46,7 @@ const blogPosts = [
   {
     title: "The Rise of Headless CMS in Modern Web Development",
     excerpt: "Understand how headless CMS is changing the way we build and manage content-driven websites.",
-    image: "/placeholder.svg?height=600&width=800",
+    image: "https://img.freepik.com/free-vector/flat-design-cms-concept-illustration_23-2148796509.jpg?height=600&width=800",
     category: "Web Development",
     date: "March 5, 2023",
     author: "Emily Patel",
@@ -55,7 +55,7 @@ const blogPosts = [
   {
     title: "How AI is Transforming Business Operations",
     excerpt: "Discover the ways artificial intelligence is revolutionizing business processes across industries.",
-    image: "/placeholder.svg?height=600&width=800",
+    image: "https://img.freepik.com/free-vector/robotic-process-automation-illustration_23-2149221119.jpg?height=600&width=800",
     category: "Technology",
     date: "February 18, 2023",
     author: "Lisa Wong",
