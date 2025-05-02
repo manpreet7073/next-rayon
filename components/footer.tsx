@@ -9,7 +9,10 @@ export default function Footer() {
 
   const handleNavigation = (href: string) => {
     router.push(href)
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    // Add a small timeout to ensure navigation completes before scrolling
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }, 100)
   }
 
   return (
@@ -121,6 +124,18 @@ export default function Footer() {
               </li>
               <li>
                 <a
+                  href="/training"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleNavigation("/training")
+                  }}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Training
+                </a>
+              </li>
+              <li>
+                <a
                   href="/contact"
                   onClick={(e) => {
                     e.preventDefault()
@@ -162,10 +177,10 @@ export default function Footer() {
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-purple-500 mr-3" />
                 <a
-                  href="mailto:info@rayonweb.com"
+                  href="mailto:info@rayonwebsolutions.com"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  info@rayonweb.com
+                  info@rayonwebsolutions.com
                 </a>
               </li>
             </ul>

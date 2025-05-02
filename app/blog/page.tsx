@@ -1,15 +1,26 @@
+"use client"
+
+import { useState } from "react"
 import BlogHero from "@/components/blog/blog-hero"
-import BlogGrid from "@/components/blog/blog-grid"
 import BlogCategories from "@/components/blog/blog-categories"
+import BlogGrid from "@/components/blog/blog-grid"
 import BlogNewsletter from "@/components/blog/blog-newsletter"
+import FloatingCta from "@/components/floating-cta"
 
 export default function BlogPage() {
+  const [activeCategory, setActiveCategory] = useState("All")
+
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category)
+  }
+
   return (
-    <div className="flex flex-col gap-20 pb-20">
+    <main className="min-h-screen bg-gray-950 text-white">
       <BlogHero />
-      <BlogCategories />
-      <BlogGrid />
+      <BlogCategories onCategoryChange={handleCategoryChange} />
+      <BlogGrid activeCategory={activeCategory} />
       <BlogNewsletter />
-    </div>
+      <FloatingCta />
+    </main>
   )
 }

@@ -1,12 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 const categories = ["All", "Web Development", "Mobile Apps", "DevOps", "UI/UX Design", "Technology", "Business"]
 
-export default function BlogCategories() {
+export default function BlogCategories({ onCategoryChange }) {
   const [activeCategory, setActiveCategory] = useState("All")
+
+  useEffect(() => {
+    // When activeCategory changes, call the parent component's callback
+    onCategoryChange(activeCategory)
+  }, [activeCategory, onCategoryChange])
 
   return (
     <section className="py-8">

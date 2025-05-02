@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://rayonweb.com"
+  const baseUrl = "https://rayonwebsolutions.com"
 
   // Main pages
   const mainRoutes = [
@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/projects",
     "/blog",
     "/careers",
+    "/training",
     "/contact",
     "/privacy-policy",
     "/terms",

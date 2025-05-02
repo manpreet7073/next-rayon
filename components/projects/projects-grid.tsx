@@ -1,126 +1,116 @@
 "use client"
 
-import { useState } from "react"
+import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
 
+// Sample project data
 const projects = [
   {
+    id: 1,
     title: "E-commerce Platform",
     category: "Web Development",
-    description: "A full-featured e-commerce platform with custom product configurator and payment integration.",
-    image: "https://img.freepik.com/free-vector/social-media-marketing-mobile-phone-concept_23-2148431747.jpg?height=600&width=800",
-    href: "/projects/ecommerce-platform",
+    image: "/projects/p1.png?height=600&width=800",
+    description: "A full-featured e-commerce platform with payment integration and inventory management.",
+    link: "#",
   },
   {
-    title: "Health & Fitness App",
-    category: "App Development",
-    description: "Cross-platform mobile application for tracking workouts, nutrition, and health metrics.",
-    image: "https://img.freepik.com/free-vector/virtual-gym-concept-illustrated_23-2148520430.jpg?height=600&width=800",
-    href: "/projects/health-fitness-app",
+    id: 2,
+    title: "E-commerce Platform",
+    category: "Web Development",
+    image: "/projects/p2.png?height=600&width=800",
+    description: "A full-featured e-commerce platform with payment integration and inventory management.",
+    link: "#",
   },
   {
+    id: 3,
+    title: "E-commerce Platform",
+    category: "Web Development",
+    image: "/projects/p3.png?height=600&width=800",
+    description: "A full-featured e-commerce platform with payment integration and inventory management.",
+    link: "#",
+  },
+  {
+    id: 4,
+    title: "E-commerce Platform",
+    category: "Web Development",
+    image: "/projects/p4.png?height=600&width=800",
+    description: "A full-featured e-commerce platform with payment integration and inventory management.",
+    link: "#",
+  },
+  {
+    id: 5,
+    title: "E-commerce Platform",
+    category: "Web Development",
+    image: "/projects/p5.png?height=600&width=800",
+    description: "A full-featured e-commerce platform with payment integration and inventory management.",
+    link: "#",
+  },
+  {
+    id: 6,
     title: "Learning Management System",
     category: "LMS & Integration",
-    description: "Custom LMS with course creation, student management, and payment processing.",
-    image: "https://img.freepik.com/free-vector/online-job-interview_23-2148613123.jpg?height=600&width=800",
-    href: "/projects/learning-management-system",
+    image: "/projects/p6.png?height=600&width=800",
+    description: "A comprehensive LMS with course creation, student management, and payment processing.",
+    link: "#",
   },
   {
-    title: "Cloud Migration",
-    category: "DevOps & Cloud",
-    description: "Migration of legacy systems to AWS cloud infrastructure with CI/CD pipeline implementation.",
-    image: "https://img.freepik.com/free-vector/cloud-services-isometric-composition-with-cloud-connection-icons-server-racks-wired-cloud-with-sync-sign-vector-illustration_1284-65966.jpg?height=600&width=800",
-    href: "/projects/cloud-migration",
-  },
-  {
-    title: "Banking App Redesign",
-    category: "UI/UX Design",
-    description: "Complete redesign of a banking application with focus on user experience and accessibility.",
-    image: "https://img.freepik.com/free-vector/mobile-banking-concept-illustration_114360-13928.jpg?height=600&width=800",
-    href: "/projects/banking-app-redesign",
-  },
-  {
-    title: "Automated Testing Framework",
-    category: "QA & Automation",
-    description: "Custom testing framework for automated regression testing of a complex SaaS platform.",
-    image: "https://img.freepik.com/free-vector/characters-fixing-computer-chatbot-isometric-icon-3d_1284-63049.jpg?height=600&width=800",
-    href: "/projects/automated-testing-framework",
-  },
-  {
-    title: "Real Estate Platform",
+    id: 7,
+    title: "E-commerce Platform",
     category: "Web Development",
-    description: "Property listing and management platform with virtual tours and agent dashboard.",
-    image: "https://img.freepik.com/free-vector/landing-page-concept-house-searching_23-2148298747.jpg?height=600&width=800",
-    href: "/projects/real-estate-platform",
-  },
-  {
-    title: "Inventory Management System",
-    category: "Web Development",
-    description: "Comprehensive inventory tracking system with barcode scanning and analytics.",
-    image: "https://img.freepik.com/free-vector/handling-order-processing-abstract-concept-vector-illustration-order-documentation-processing-system-handling-customer-request-logistics-automated-logistics-operations-abstract-metaphor_335657-1789.jpg?height=600&width=800",
-    href: "/projects/inventory-management-system",
-  },
-  {
-    title: "Travel Booking App",
-    category: "App Development",
-    description: "Mobile app for booking flights, hotels, and experiences with offline functionality.",
-    image: "https://img.freepik.com/free-vector/travel-destination-choosing-accommodation-booking-system_335657-2503.jpg?height=600&width=800",
-    href: "/projects/travel-booking-app",
+    image: "/projects/p7.png?height=600&width=800",
+    description: "A full-featured e-commerce platform with payment integration and inventory management.",
+    link: "#",
   },
 ]
 
-export default function ProjectsGrid() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+export default function ProjectsGrid({ activeCategory }) {
+  // Filter projects based on the active category
+  const filteredProjects =
+    activeCategory === "All" ? projects : projects.filter((project) => project.category === activeCategory)
 
   return (
-    <section className="py-12">
+    <section className="py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {filteredProjects.map((project) => (
             <motion.div
-              key={index}
+              key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className="group"
+              className="bg-gray-900 rounded-xl overflow-hidden hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
             >
-              <Link href={project.href} className="block">
-                <div className="rounded-xl overflow-hidden glass-card h-full flex flex-col">
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
-                    <div className="absolute bottom-4 left-4">
-                      <span className="px-3 py-1 bg-purple-500 bg-opacity-90 rounded-full text-xs font-medium">
-                        {project.category}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-6 flex-grow">
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 mb-4">{project.description}</p>
-                    <div className="flex items-center text-purple-500 font-medium group">
-                      <span>View Project</span>
-                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </div>
+              <div className="relative h-60 overflow-hidden">
+                <Image
+                  src={project.image || "/placeholder.svg"}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                />
+                <div className="absolute top-4 left-4 bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  {project.category}
                 </div>
-              </Link>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                <p className="text-gray-400 mb-4">{project.description}</p>
+                <Link
+                  href={project.link}
+                  className="inline-block text-purple-500 font-medium hover:text-purple-400 transition-colors"
+                >
+                  View Project →
+                </Link>
+              </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

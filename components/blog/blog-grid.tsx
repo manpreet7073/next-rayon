@@ -1,127 +1,125 @@
 "use client"
 
-import { useState } from "react"
+import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { ArrowRight, Calendar, User } from "lucide-react"
 
+// Sample blog data
 const blogPosts = [
   {
-    title: "10 Essential Web Development Trends for 2023",
-    excerpt: "Explore the latest trends in web development that are shaping the digital landscape in 2023.",
-    image: "https://img.freepik.com/free-vector/flat-d-isometric-web-development-infographics-concept_126523-1540.jpg?height=600&width=800",
+    id: 1,
+    title: "The Future of Web Development: What to Expect in 2023",
     category: "Web Development",
-    date: "May 15, 2023",
-    author: "Alex Johnson",
-    href: "/blog/web-development-trends-2023",
+    image: "https://img.freepik.com/free-photo/representations-user-experience-interface-design_23-2150104516.jpg?height=600&width=800",
+    date: "June 15, 2023",
+    author: "John Smith",
+    excerpt: "Explore the upcoming trends and technologies that will shape web development in the coming year.",
+    link: "#",
   },
   {
-    title: "The Future of Mobile App Development",
-    excerpt: "Discover how AI, AR, and other technologies are transforming the mobile app development landscape.",
-    image: "https://img.freepik.com/free-vector/app-development-banner_33099-1720.jpg?height=600&width=800",
+    id: 2,
+    title: "Building Cross-Platform Mobile Apps with React Native",
     category: "Mobile Apps",
-    date: "April 28, 2023",
-    author: "Sarah Chen",
-    href: "/blog/future-of-mobile-app-development",
-  },
-  {
-    title: "DevOps Best Practices for Startups",
-    excerpt: "Learn how startups can implement DevOps practices to streamline development and deployment processes.",
-    image: "https://img.freepik.com/free-vector/gradient-devops-illustration_23-2149370940.jpg?height=600&width=800",
-    category: "DevOps",
-    date: "April 10, 2023",
-    author: "David Kim",
-    href: "/blog/devops-best-practices-startups",
-  },
-  {
-    title: "UI/UX Design Principles for Better Conversion",
-    excerpt: "Explore design principles that can help improve user engagement and conversion rates on your website.",
     image: "https://img.freepik.com/free-vector/gradient-ui-ux-background_23-2149052117.jpg?height=600&width=800",
+    date: "May 28, 2023",
+    author: "Sarah Johnson",
+    excerpt: "Learn how to create efficient and performant mobile applications that work on both iOS and Android.",
+    link: "#",
+  },
+  {
+    id: 3,
+    title: "DevOps Best Practices for Startups",
+    category: "DevOps",
+    image: "https://img.freepik.com/free-vector/gradient-devops-illustration_23-2149370940.jpg?height=600&width=800",
+    date: "May 10, 2023",
+    author: "Michael Brown",
+    excerpt: "Implement effective DevOps strategies to streamline your startup's development and deployment processes.",
+    link: "#",
+  },
+  {
+    id: 4,
+    title: "UI/UX Design Principles Every Developer Should Know",
     category: "UI/UX Design",
-    date: "March 22, 2023",
-    author: "Michael Rodriguez",
-    href: "/blog/ui-ux-design-principles-conversion",
+    image: "https://img.freepik.com/free-vector/gradient-ui-ux-elements-background_23-2149056159.jpg?height=600&width=800",
+    date: "April 22, 2023",
+    author: "Emily Chen",
+    excerpt: "Discover essential design principles that can help developers create more user-friendly applications.",
+    link: "#",
   },
   {
-    title: "The Rise of Headless CMS in Modern Web Development",
-    excerpt: "Understand how headless CMS is changing the way we build and manage content-driven websites.",
-    image: "https://img.freepik.com/free-vector/flat-design-cms-concept-illustration_23-2148796509.jpg?height=600&width=800",
-    category: "Web Development",
-    date: "March 5, 2023",
-    author: "Emily Patel",
-    href: "/blog/rise-of-headless-cms",
-  },
-  {
-    title: "How AI is Transforming Business Operations",
-    excerpt: "Discover the ways artificial intelligence is revolutionizing business processes across industries.",
-    image: "https://img.freepik.com/free-vector/robotic-process-automation-illustration_23-2149221119.jpg?height=600&width=800",
+    id: 5,
+    title: "The Impact of AI on Modern Software Development",
     category: "Technology",
-    date: "February 18, 2023",
-    author: "Lisa Wong",
-    href: "/blog/ai-transforming-business-operations",
+    image: "https://img.freepik.com/free-vector/robotic-process-automation-illustration_23-2149237081.jpg?height=600&width=800",
+    date: "April 5, 2023",
+    author: "David Wilson",
+    excerpt: "Explore how artificial intelligence is transforming the way we build and maintain software applications.",
+    link: "#",
+  },
+  {
+    id: 6,
+    title: "How to Scale Your Tech Business in a Competitive Market",
+    category: "Business",
+    image: "https://img.freepik.com/free-photo/representation-user-experience-interface-design_23-2150169851.jpg?height=600&width=800",
+    date: "March 18, 2023",
+    author: "Lisa Rodriguez",
+    excerpt: "Strategies for growing your technology business and staying ahead of the competition.",
+    link: "#",
   },
 ]
 
-export default function BlogGrid() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+export default function BlogGrid({ activeCategory }) {
+  // Filter blog posts based on the active category
+  const filteredPosts =
+    activeCategory === "All" ? blogPosts : blogPosts.filter((post) => post.category === activeCategory)
 
   return (
-    <section className="py-12">
+    <section className="py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {filteredPosts.map((post) => (
             <motion.div
-              key={index}
+              key={post.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className="group"
+              className="bg-gray-900 rounded-xl overflow-hidden hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
             >
-              <Link href={post.href} className="block">
-                <div className="rounded-xl overflow-hidden glass-card h-full flex flex-col">
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={post.image || "/placeholder.svg"}
-                      alt={post.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
-                    <div className="absolute bottom-4 left-4">
-                      <span className="px-3 py-1 bg-purple-500 bg-opacity-90 rounded-full text-xs font-medium">
-                        {post.category}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-6 flex-grow">
-                    <div className="flex items-center text-gray-400 text-sm mb-3">
-                      <div className="flex items-center mr-4">
-                        <Calendar className="h-4 w-4 mr-1" />
-                        <span>{post.date}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <User className="h-4 w-4 mr-1" />
-                        <span>{post.author}</span>
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-400 mb-4">{post.excerpt}</p>
-                    <div className="flex items-center text-purple-500 font-medium group">
-                      <span>Read More</span>
-                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </div>
+              <div className="relative h-60 overflow-hidden">
+                <Image
+                  src={post.image || "/placeholder.svg"}
+                  alt={post.title}
+                  fill
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                />
+                <div className="absolute top-4 left-4 bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  {post.category}
                 </div>
-              </Link>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center text-sm text-gray-400 mb-3">
+                  <span>{post.date}</span>
+                  <span className="mx-2">•</span>
+                  <span>{post.author}</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2">{post.title}</h3>
+                <p className="text-gray-400 mb-4">{post.excerpt}</p>
+                <Link
+                  href={post.link}
+                  className="inline-block text-purple-500 font-medium hover:text-purple-400 transition-colors"
+                >
+                  Read More →
+                </Link>
+              </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

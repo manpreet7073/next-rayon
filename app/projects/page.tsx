@@ -1,15 +1,26 @@
+"use client"
+
+import { useState } from "react"
 import ProjectsHero from "@/components/projects/projects-hero"
-import ProjectsGrid from "@/components/projects/projects-grid"
 import ProjectsFilter from "@/components/projects/projects-filter"
-import ProjectsCTA from "@/components/projects/projects-cta"
+import ProjectsGrid from "@/components/projects/projects-grid"
+import ProjectsCta from "@/components/projects/projects-cta"
+import FloatingCta from "@/components/floating-cta"
 
 export default function ProjectsPage() {
+  const [activeCategory, setActiveCategory] = useState("All")
+
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category)
+  }
+
   return (
-    <div className="flex flex-col gap-20 pb-20">
+    <main className="min-h-screen bg-gray-950 text-white">
       <ProjectsHero />
-      <ProjectsFilter />
-      <ProjectsGrid />
-      <ProjectsCTA />
-    </div>
+      <ProjectsFilter onCategoryChange={handleCategoryChange} />
+      <ProjectsGrid activeCategory={activeCategory} />
+      <ProjectsCta />
+      <FloatingCta />
+    </main>
   )
 }

@@ -41,7 +41,7 @@ export default function AboutHero() {
             <div className="aspect-square rounded-2xl overflow-hidden glass-card p-2">
               <div className="w-full h-full rounded-xl overflow-hidden relative">
                 <Image
-                  src="/placeholder.svg?height=600&width=600"
+                  src="https://img.freepik.com/free-vector/gradient-particle-wave-background_23-2150511960.jpg?height=600&width=600"
                   alt="Rayon Web Solutions Team"
                   fill
                   className="object-cover"
@@ -50,7 +50,7 @@ export default function AboutHero() {
             </div>
             <div className="absolute -bottom-6 -right-6 w-48 h-48 rounded-xl overflow-hidden glass-card p-2 shadow-lg">
               <div className="w-full h-full rounded-lg overflow-hidden relative">
-                <Image src="/placeholder.svg?height=200&width=200" alt="Office Space" fill className="object-cover" />
+                <Image src="https://img.freepik.com/free-vector/digital-global-connection-network-technology-background_1017-23324.jpg?height=200&width=200" alt="Office Space" fill className="object-cover" />
               </div>
             </div>
           </motion.div>

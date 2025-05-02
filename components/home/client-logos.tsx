@@ -5,13 +5,12 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 
 const clients = [
-  { name: "Client 1", logo: "https://img.freepik.com/premium-vector/logo-google_798572-207.jpg?height=80&width=160" },
-  { name: "Client 2", logo: "/aws-cloud.svg?height=80&width=160" },
-  { name: "Client 3", logo: "/unnamed.png?height=80&width=160" },
+  { name: "Client 1", logo: "/aws-cloud.svg?height=80&width=160" },
+  { name: "Client 2", logo: "/download.png?height=80&width=160" },
+  { name: "Client 3", logo: "/lenovo-service-centre.jpg?height=80&width=160" },
   { name: "Client 4", logo: "/rKXaODLl_400x400.jpg?height=80&width=160" },
-  { name: "Client 5", logo: "/download.png?height=80&width=160" },
-  { name: "Client 6", logo: "/touchicon-180.png?height=80&width=160" },
-  { name: "Client 7", logo: "/lenovo-service-centre.jpg?height=80&width=160" },
+  { name: "Client 5", logo: "/touchicon-180.png?height=80&width=160" },
+  { name: "Client 6", logo: "/unnamed.png?height=80&width=160" },
 ]
 
 export default function ClientLogos() {
