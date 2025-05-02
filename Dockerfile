@@ -4,11 +4,15 @@
     # Set working directory
     WORKDIR /app
     
-    # Copy package.json and package-lock.json first (for caching)
+    # Copy package.json and package-lock.json
     COPY package.json package-lock.json ./
     
-    # Install all dependencies (including dev dependencies)
-    RUN npm install
+    # Clear npm cache and set a faster registry
+    RUN npm cache clean --force
+    RUN npm config set registry https://registry.yarnpkg.com
+    
+    # Install dependencies with verbose logging
+    RUN npm install --loglevel verbose
     
     # Copy the rest of the app source
     COPY . .
@@ -22,10 +26,8 @@
     # Set working directory
     WORKDIR /app
     
-    # Copy only production dependencies (from the builder)
+    # Copy only production dependencies
     COPY --from=builder /app/node_modules ./node_modules
-    
-    # Copy built assets and other required files
     COPY --from=builder /app/.next ./.next
     COPY --from=builder /app/public ./public
     COPY --from=builder /app/package.json ./package.json
@@ -37,4 +39,3 @@
     
     # Run the production server
     CMD ["npm", "start"]
-    
