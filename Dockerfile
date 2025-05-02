@@ -1,16 +1,23 @@
-# Use the official Node.js image
-FROM node:21-slim AS production
+# Use the official Node.js image as the base  
+FROM node:21  
 
-# Set working directory
-WORKDIR /app
-# Copy the rest of the app source
-ADD . /app
-RUN npm install
-RUN NODE_OPTIONS="--max-old-space-size=9096" 
-RUN npm run build
+# Set the working directory inside the container  
+WORKDIR /app  
 
-# Expose Next.js default port
-EXPOSE 3000
+# Copy package.json and package-lock.json to the container  
+COPY package*.json ./  
 
-# Start the Next.js production server
-CMD ["npm", "start"]
+# Install dependencies  
+RUN npm install  
+
+# Copy the app source code to the container  
+COPY . .  
+
+# Build the Next.js app  
+RUN npm run build  
+
+# Expose the port the app will run on  
+EXPOSE 3000  
+
+# Start the app  
+CMD ["npm", "start"]  
