@@ -12,7 +12,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
 import { CalendarIcon, CheckCircle2 } from "lucide-react"
-import emailjs from "emailjs-com" // ✅ EmailJS import
+import emailjs from '@emailjs/browser';
 
 export default function TrainingForm() {
   const [formData, setFormData] = useState({

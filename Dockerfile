@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM node:21-alpine AS builder
+FROM node:20-alpine AS builder
 
 # Set working directory
 WORKDIR /app
@@ -7,26 +7,30 @@ WORKDIR /app
 # Copy package files
 COPY package.json package-lock.json* ./
 
-# Install dependencies and check for compatibility issues
-RUN npm ci && npm audit fix --force || echo "Dependency issues found but continuing build"
+# Install dependencies
+RUN npm ci --ignore-scripts
 
 # Copy all files
 COPY . .
 
+# Clean Next.js cache to avoid module resolution issues
+RUN rm -rf .next
+
 # Build the application
-RUN npm run build
+RUN npm run build || { echo "Build failed. Check Next.js version or dependency issues."; exit 1; }
 
 # Stage 2: Run the application
-FROM node:21-alpine AS runner
+FROM node:20-alpine AS runner
 
+# Set working directory
 WORKDIR /app
 
 # Set to production environment
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 # Create a non-root user to run the application
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN addgroup --system --gid 1001 nodejs \
+    && adduser --system --uid 1001 nextjs
 
 # Copy necessary files from builder stage
 COPY --from=builder /app/public ./public
