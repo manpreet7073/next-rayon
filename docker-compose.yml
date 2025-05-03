@@ -1,16 +1,25 @@
 version: '3.8'
 
 services:
-  prod:
-    container_name: rayonweb-prod
+  app:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: rayonwebsolutions
+    restart: unless-stopped
     ports:
       - "3000:3000"
-    restart: unless-stopped
-    command: npm run start
-    # No volumes in prod to avoid overwriting build artifacts like `.next` folder
-
-volumes:
-  node_modules:
+    environment:
+      - NODE_ENV=production
+      # Add other environment variables as needed
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
