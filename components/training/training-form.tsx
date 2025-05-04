@@ -201,7 +201,7 @@ export default function TrainingForm() {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar mode="single" selected={formData.date} onSelect={handleDateChange} initialFocus />
+                    <Calendar mode="single" selected={formData.date} onSelect={handleDateChange} initialFocus />
                     </PopoverContent>
                   </Popover>
                 </div>

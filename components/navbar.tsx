@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, Menu, X, Code, Smartphone, Cloud, Palette, BookOpen, TestTube } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import BookConsultationModal from "./contact/BookConsultationModal"
 
 const services = [
   {
@@ -86,6 +88,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -105,21 +108,33 @@ export default function Navbar() {
   const toggleDropdown = (name: string) => {
     setOpenDropdown(openDropdown === name ? null : name)
   }
+  const handleOpenModal = () => {
+    setShowModal(true)
+  }
 
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
+  
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "bg-gray-900/80 backdrop-blur-lg shadow-lg" : "bg-transparent",
+        scrolled ? "bg-gray-900/80 shadow-lg" : "bg-transparent",
       )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold gradient-text">Rayon</span>
-              <span className="ml-1 text-xl font-light">Web Solutions</span>
-            </Link>
+             <Image
+              src={"/logo3.png"}
+              alt={"logo"}
+              height='200'
+              width='300'
+              className="object-cover"
+            /></Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -203,10 +218,11 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden lg:flex">
-            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full px-6">
+            <Button onClick={handleOpenModal} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full px-6">
               Book a Consultation
             </Button>
           </div>
+          
 
           {/* Mobile menu button */}
           <div className="lg:hidden">
@@ -306,7 +322,7 @@ export default function Navbar() {
                 </div>
               ))}
               <div className="pt-4">
-                <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full">
+                <Button onClick={handleOpenModal} className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full">
                   Book a Consultation
                 </Button>
               </div>
@@ -314,6 +330,7 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      <BookConsultationModal showModal={showModal} onClose={handleCloseModal} />
     </header>
   )
 }
