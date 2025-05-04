@@ -1,8 +1,10 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { useMobile } from "@/hooks/use-mobile"
+
 
 const clients = [
   { name: "Client 1", logo: "/aws-cloud.svg?height=80&width=160" },
@@ -14,45 +16,33 @@ const clients = [
 ]
 
 export default function ClientLogos() {
-  const scrollRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isMobile = useMobile()
 
+  // Use CSS-based animation instead of JavaScript for better performance
   useEffect(() => {
-    const scrollElement = scrollRef.current
-    if (!scrollElement) return
+    const container = containerRef.current
+    if (!container) return
 
-    const scrollWidth = scrollElement.scrollWidth
-    const clientWidth = scrollElement.clientWidth
-
-    if (scrollWidth <= clientWidth) return
-
-    let scrollPos = 0
-    const scrollSpeed = 0.5
-
-    const scroll = () => {
-      scrollPos += scrollSpeed
-      if (scrollPos >= scrollWidth / 2) {
-        scrollPos = 0
-      }
-      if (scrollElement) {
-        scrollElement.scrollLeft = scrollPos
-      }
-      requestAnimationFrame(scroll)
+    // Add CSS animation class based on screen size
+    if (isMobile) {
+      container.classList.add("animate-scroll-slow")
+    } else {
+      container.classList.add("animate-scroll")
     }
-
-    const animation = requestAnimationFrame(scroll)
 
     return () => {
-      cancelAnimationFrame(animation)
+      container.classList.remove("animate-scroll", "animate-scroll-slow")
     }
-  }, [])
+  }, [isMobile])
 
   return (
-    <section className="py-16 bg-gray-950">
+    <section className="py-16 bg-gray-950 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
@@ -65,16 +55,22 @@ export default function ClientLogos() {
         </motion.div>
 
         <div className="relative overflow-hidden">
+          {/* Use CSS-based animation for smooth scrolling */}
           <div
-            ref={scrollRef}
-            className="flex space-x-12 py-8 overflow-x-auto scrollbar-hide"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            ref={containerRef}
+            className="flex space-x-12 py-8 logo-scroll-container"
+            style={{
+              willChange: "transform",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
           >
             {/* First set of logos */}
             {clients.map((client, index) => (
               <div
                 key={index}
                 className="flex-shrink-0 flex items-center justify-center h-20 w-40 glass-card rounded-lg p-4"
+                style={{ willChange: "opacity, transform" }}
               >
                 <Image
                   src={client.logo || "/placeholder.svg"}
@@ -82,6 +78,7 @@ export default function ClientLogos() {
                   width={160}
                   height={80}
                   className="max-h-full max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  loading="lazy"
                 />
               </div>
             ))}
@@ -91,6 +88,7 @@ export default function ClientLogos() {
               <div
                 key={`duplicate-${index}`}
                 className="flex-shrink-0 flex items-center justify-center h-20 w-40 glass-card rounded-lg p-4"
+                style={{ willChange: "opacity, transform" }}
               >
                 <Image
                   src={client.logo || "/placeholder.svg"}
@@ -98,6 +96,7 @@ export default function ClientLogos() {
                   width={160}
                   height={80}
                   className="max-h-full max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  loading="lazy"
                 />
               </div>
             ))}

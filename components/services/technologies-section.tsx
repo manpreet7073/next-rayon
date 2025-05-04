@@ -7,40 +7,40 @@ const technologies = [
   {
     category: "Frontend",
     techs: [
-      { name: "React", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Next.js", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Vue.js", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Angular", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Tailwind CSS", logo: "/placeholder.svg?height=60&width=60" },
+      { name: "React", logo: "/technologies/react.png?height=60&width=60" },
+      { name: "Next.js", logo: "/technologies/next.png?height=60&width=60" },
+      { name: "Vue.js", logo: "/technologies/vue.png?height=60&width=60" },
+      { name: "Angular", logo: "/technologies/angularjs.png?height=60&width=60" },
+      { name: "Tailwind CSS", logo: "/technologies/tailwind.png?height=60&width=60" },
     ],
   },
   {
     category: "Backend",
     techs: [
-      { name: "Node.js", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Python", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "PHP", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Java", logo: "/placeholder.svg?height=60&width=60" },
-      { name: ".NET", logo: "/placeholder.svg?height=60&width=60" },
+      { name: "Node.js", logo: "/technologies/node.png?height=60&width=60" },
+      { name: "Python", logo: "/technologies/python.png?height=60&width=60" },
+      { name: "PHP", logo: "/technologies/php.png?height=60&width=60" },
+      { name: "Java", logo: "/technologies/java.png?height=60&width=60" },
+      { name: ".NET", logo: "/technologies/net.png?height=60&width=60" },
     ],
   },
   {
     category: "Mobile",
     techs: [
-      { name: "React Native", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Flutter", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Swift", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Kotlin", logo: "/placeholder.svg?height=60&width=60" },
+      { name: "React Native", logo: "/technologies/react-native.png?height=60&width=60" },
+      { name: "Flutter", logo: "/technologies/flutter.png?height=60&width=60" },
+      { name: "Swift", logo: "/technologies/swift.png?height=60&width=60" },
+      { name: "Kotlin", logo: "/technologies/kotlin.png?height=60&width=60" },
     ],
   },
   {
     category: "DevOps",
     techs: [
-      { name: "Docker", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Kubernetes", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "AWS", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Azure", logo: "/placeholder.svg?height=60&width=60" },
-      { name: "Google Cloud", logo: "/placeholder.svg?height=60&width=60" },
+      { name: "Docker", logo: "/technologies/docker.png?height=60&width=60" },
+      { name: "Kubernetes", logo: "/technologies/kubernetes.png?height=60&width=60" },
+      { name: "AWS", logo: "/technologies/aws.png?height=60&width=60" },
+      { name: "Azure", logo: "/technologies/azure.png?height=60&width=60" },
+      { name: "Google Cloud", logo: "/technologies/gcp.jpeg?height=60&width=60" },
     ],
   },
 ]
@@ -86,7 +86,7 @@ export default function TechnologiesSection() {
                   >
                     <div className="w-20 h-20 glass-card rounded-xl flex items-center justify-center p-4 mb-3">
                       <Image
-                        src={tech.logo || "/placeholder.svg"}
+                        src={tech.logo || "/technologies/next.png"}
                         alt={tech.name}
                         width={60}
                         height={60}

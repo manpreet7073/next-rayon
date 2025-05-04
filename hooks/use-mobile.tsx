@@ -19,3 +19,6 @@ export function useIsMobile() {
 
   return !!isMobile
 }
+
+// Add this alias export to fix the import error
+export const useMobile = useIsMobile

@@ -2,30 +2,45 @@
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Sphere, MeshDistortMaterial } from "@react-three/drei"
-import Link from "next/link"
+import dynamic from "next/dynamic"
+import { Suspense, useState, useEffect } from "react"
+import { useMobile } from "@/hooks/use-mobile"
+
+// Dynamically import the 3D components to reduce initial bundle size
+const Scene3D = dynamic(() => import("@/components/home/hero-3d"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 animate-pulse opacity-50"></div>
+    </div>
+  ),
+})
 
 export default function Hero() {
+  const isMobile = useMobile()
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    // Mark component as loaded after a short delay to ensure smooth animations
+    const timer = setTimeout(() => {
+      setIsLoaded(true)
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div className="relative min-h-[90vh] flex items-center">
-      {/* 3D Background */}
+      {/* 3D Background - Only render on desktop or if mobile is explicitly allowed */}
       <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} intensity={1} />
-          <Sphere args={[1.5, 100, 200]} position={[0, 0, 0]}>
-            <MeshDistortMaterial
-              color="#8b5cf6"
-              attach="material"
-              distort={0.5}
-              speed={1.5}
-              roughness={0.2}
-              metalness={0.8}
-            />
-          </Sphere>
-          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.2} />
-        </Canvas>
+        <Suspense
+          fallback={
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 animate-pulse opacity-50"></div>
+            </div>
+          }
+        >
+          {(!isMobile || (isMobile && isLoaded)) && <Scene3D />}
+        </Suspense>
       </div>
 
       {/* Content */}
@@ -56,18 +71,16 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href={'/contact'}>
             <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
               Book a Free Consultation
-            </Button></Link>
-            <Link href={'/services'}>
+            </Button>
             <Button
               variant="outline"
               className="group px-8 py-6 text-lg rounded-full border-gray-700 hover:bg-gray-800"
             >
               Explore Our Services
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Button></Link>
+            </Button>
           </motion.div>
         </div>
       </div>

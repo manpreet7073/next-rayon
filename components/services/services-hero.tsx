@@ -1,10 +1,22 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import BookConsultationModal from "../contact/BookConsultationModal"
 
 export default function ServicesHero() {
+  const [showModal, setShowModal] = useState(false)
+    
+    
+  const handleOpenModal = () => {
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
   return (
     <section className="relative pt-20 pb-16 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -26,12 +38,14 @@ export default function ServicesHero() {
             We offer a comprehensive range of digital services to help your business thrive in the digital landscape.
             From web and app development to cloud solutions and UI/UX design, we've got you covered.
           </p>
-          <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
+          <Button onClick={handleOpenModal} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
             Book a Free Consultation
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </motion.div>
       </div>
+              <BookConsultationModal showModal={showModal} onClose={handleCloseModal} />
+      
     </section>
   )
 }

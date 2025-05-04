@@ -87,3 +87,63 @@
     opacity: 0.7;
   }
 }
+
+/* CSS-based logo scrolling animation */
+.logo-scroll-container {
+  width: fit-content;
+  display: flex;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-160px * 8 - 3rem * 8)); /* Width of all logos + gaps */
+  }
+}
+
+@keyframes scroll-slow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-160px * 8 - 3rem * 8)); /* Width of all logos + gaps */
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-slow {
+  animation: scroll-slow 60s linear infinite;
+  will-change: transform;
+}
+
+/* Optimize rendering performance */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Improve scrolling performance */
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-pulse-slow,
+  .animate-scroll,
+  .animate-scroll-slow {
+    animation: none !important;
+  }
+}

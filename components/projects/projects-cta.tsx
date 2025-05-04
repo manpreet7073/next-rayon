@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export default function ProjectsCTA() {
   return (
@@ -34,16 +35,18 @@ export default function ProjectsCTA() {
               Let's discuss how we can help you achieve your business goals with our expertise in digital solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href={'/contact'}>
               <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
                 Start Your Project
-              </Button>
+              </Button></Link>
+              <Link href={'/contact'}>
               <Button
                 variant="outline"
                 className="group px-8 py-6 text-lg rounded-full border-gray-700 hover:bg-gray-800"
               >
                 Contact Us
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
+              </Button></Link>
             </div>
           </div>
         </motion.div>

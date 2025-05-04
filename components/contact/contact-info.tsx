@@ -20,7 +20,7 @@ export default function ContactInfo() {
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-1">Office Address</h3>
-            <p className="text-gray-400">123 Tech Street, Silicon Valley, CA 94043, USA</p>
+            <p className="text-gray-400">Mohali</p>
           </div>
         </div>
 
@@ -45,7 +45,7 @@ export default function ContactInfo() {
           <div>
             <h3 className="text-lg font-semibold mb-1">Email Address</h3>
             <p className="text-gray-400">
-              <a href="mailto:info@rayonwebsolutions.com" className="hover:text-white transition-colors">
+              <a href="mailto:info@rayonweb.com" className="hover:text-white transition-colors">
                 info@rayonweb.com
               </a>
             </p>

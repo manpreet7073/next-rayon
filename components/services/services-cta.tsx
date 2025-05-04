@@ -1,10 +1,23 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
+import BookConsultationModal from "../contact/BookConsultationModal"
 
 export default function ServicesCTA() {
+  const [showModal, setShowModal] = useState(false)
+    
+    
+  const handleOpenModal = () => {
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
   return (
     <section className="py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,20 +47,23 @@ export default function ServicesCTA() {
               Let's discuss your project and explore how our services can help you achieve your business goals.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
-                 tttttttttttttt
+              <Button onClick={handleOpenModal} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
+                Book a Free Consultation
               </Button>
+              <Link href={'/projects'}>
               <Button
                 variant="outline"
                 className="group px-8 py-6 text-lg rounded-full border-gray-700 hover:bg-gray-800"
               >
                 View Our Portfolio
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
+              </Button></Link>
             </div>
           </div>
         </motion.div>
       </div>
+      <BookConsultationModal showModal={showModal} onClose={handleCloseModal} />
+      
     </section>
   )
 }

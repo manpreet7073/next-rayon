@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Facebook, Twitter, Instagram, Linkedin, Github, Mail, Phone, MapPin } from "lucide-react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
+import Image from "next/image"
+
 
 export default function Footer() {
   const router = useRouter()
@@ -20,23 +23,20 @@ export default function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault()
-                handleNavigation("/")
-              }}
-              className="flex items-center mb-6"
-            >
-              <span className="text-2xl font-bold gradient-text">Rayon</span>
-              <span className="ml-1 text-xl font-light">Web Solutions</span>
-            </a>
+          <Link href="/" className="flex items-center">
+             <Image
+              src={"/logo3.png"}
+              alt={"logo"}
+              height='200'
+              width='300'
+              className="object-cover"
+            /></Link>
             <p className="text-gray-400 mb-6">
               Your Vision, Our Code – Turning Ideas into Reality. We build cutting-edge web and mobile solutions for
               businesses worldwide.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-purple-500 transition-colors">
+              <a href="https://www.facebook.com/profile.php?id=61573818253676" target="_blank" className="text-gray-400 hover:text-purple-500 transition-colors">
                 <Facebook size={20} />
                 <span className="sr-only">Facebook</span>
               </a>
@@ -44,11 +44,11 @@ export default function Footer() {
                 <Twitter size={20} />
                 <span className="sr-only">Twitter</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-purple-500 transition-colors">
+              <a href="https://www.instagram.com/rayonwebsolutions/" target="_blank" className="text-gray-400 hover:text-purple-500 transition-colors">
                 <Instagram size={20} />
                 <span className="sr-only">Instagram</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-purple-500 transition-colors">
+              <a href="https://www.linkedin.com/company/rayonwebsolutions/?viewAsMember=true" target="_blank" className="text-gray-400 hover:text-purple-500 transition-colors">
                 <Linkedin size={20} />
                 <span className="sr-only">LinkedIn</span>
               </a>
@@ -166,7 +166,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 text-purple-500 mr-3 mt-0.5" />
-                <span className="text-gray-400">123 Tech Street, Silicon Valley, CA 94043, USA</span>
+                <span className="text-gray-400">Mohali</span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 text-purple-500 mr-3" />
@@ -177,10 +177,10 @@ export default function Footer() {
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-purple-500 mr-3" />
                 <a
-                  href="mailto:info@rayonwebsolutions.com"
+                  href="mailto:info@rayonweb.com"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  info@rayonwebsolutions.com
+                  info@rayonweb.com
                 </a>
               </li>
             </ul>
