@@ -1,22 +1,13 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
-import Link from "next/link"
-import BookConsultationModal from "../contact/BookConsultationModal"
+import { ArrowRight, Shield } from "lucide-react"
+import { useRouter } from "next/navigation"
 
-export default function ServiceCTA() {
-      const [showModal, setShowModal] = useState(false)
-        
-     const handleOpenModal = () => {
-        setShowModal(true)
-      }
-    
-      const handleCloseModal = () => {
-        setShowModal(false)
-      }    
+export default function SecurityCTA() {
+  const router = useRouter()
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,32 +30,41 @@ export default function ServiceCTA() {
           </div>
 
           <div className="relative z-10 py-16 px-8 md:py-24 md:px-16 text-center">
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <div className="absolute inset-0 bg-purple-600 rounded-full blur-xl opacity-30 animate-pulse"></div>
+                <div className="relative bg-gradient-to-br from-purple-600 to-blue-600 p-4 rounded-full">
+                  <Shield className="h-10 w-10 text-white" />
+                </div>
+              </div>
+            </div>
+
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              Ready to <span className="gradient-text">Get Started?</span>
+              Ready for <span className="gradient-text">Enterprise-Grade Security?</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
-              Contact us today to discuss your project and discover how we can help you achieve your business goals.
+              Contact our security experts to learn how we can help protect your business with our comprehensive
+              security solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button onClick={handleOpenModal} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
-            Book a Free Consultation
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-              <Link href={'/contact'} >
+              <Button
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full"
+                onClick={() => router.push("/contact")}
+              >
+                Schedule a Security Consultation
+              </Button>
               <Button
                 variant="outline"
                 className="group px-8 py-6 text-lg rounded-full border-gray-700 hover:bg-gray-800"
+                onClick={() => router.push("/services")}
               >
-                Contact Us
+                Explore Our Services
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
-              </Link>
             </div>
           </div>
         </motion.div>
       </div>
-                          <BookConsultationModal showModal={showModal} onClose={handleCloseModal} />
-      
     </section>
   )
 }

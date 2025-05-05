@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Code, Smartphone, Cloud, Palette, BookOpen, TestTube } from "lucide-react"
+import Link from "next/link"
 
 const iconComponents = {
   Code: Code,
@@ -67,9 +68,12 @@ export default function ServiceDetailHero({ title, description, icon, color }: S
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
+            <Link href={'/contact'} >
             <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
               Get Started
             </Button>
+            </Link>
+            <Link href={'/projects'} >
             <Button
               variant="outline"
               className="group px-8 py-6 text-lg rounded-full border-gray-700 hover:bg-gray-800"
@@ -77,6 +81,7 @@ export default function ServiceDetailHero({ title, description, icon, color }: S
               View Portfolio
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
+            </Link>
           </motion.div>
         </div>
       </div>

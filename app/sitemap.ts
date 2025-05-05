@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/privacy-policy",
     "/terms",
     "/sitemap",
+    "/security"
   ]
 
   // Service pages

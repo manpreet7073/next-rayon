@@ -4,6 +4,8 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, MapPin, Clock, DollarSign } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import JobApplicationForm from "@/components/careers/job-application-form"
 
 const jobOpenings = [
   {
@@ -68,6 +70,15 @@ const jobOpenings = [
 
 export default function CareersOpenings() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [selectedJob, setSelectedJob] = useState<number | null>(null)
+
+  const handleOpenApplication = (index: number) => {
+    setSelectedJob(index)
+  }
+
+  const handleCloseApplication = () => {
+    setSelectedJob(null)
+  }
 
   return (
     <section className="py-20">
@@ -125,6 +136,7 @@ export default function CareersOpenings() {
               <Button
                 className="w-full bg-gradient-to-r from-purple-600/20 to-blue-600/20 hover:from-purple-600/30 hover:to-blue-600/30 text-white group"
                 variant="outline"
+                onClick={() => handleOpenApplication(index)}
               >
                 <span>Apply Now</span>
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -132,6 +144,20 @@ export default function CareersOpenings() {
             </motion.div>
           ))}
         </div>
+
+        {selectedJob !== null && (
+          <Dialog open={selectedJob !== null} onOpenChange={handleCloseApplication}>
+            <DialogContent className="sm:max-w-[600px] bg-background/95 backdrop-blur-sm border border-purple-500/20">
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold">Apply for {jobOpenings[selectedJob].title}</DialogTitle>
+                <DialogDescription className="text-gray-400">
+                  Fill out the form below to apply for this position. We'll get back to you as soon as possible.
+                </DialogDescription>
+              </DialogHeader>
+              <JobApplicationForm jobTitle={jobOpenings[selectedJob].title} onClose={handleCloseApplication} />
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
     </section>
   )

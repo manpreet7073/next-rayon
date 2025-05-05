@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Shield, Lock, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function CerberSection() {
   return (
@@ -57,10 +58,11 @@ export default function CerberSection() {
                 </div>
               </div>
             </div>
-
+            <Link href={'/security'}>
             <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full px-8 py-6">
               Learn More About Our Security
             </Button>
+            </Link>
           </motion.div>
 
           <motion.div

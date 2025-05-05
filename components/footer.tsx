@@ -88,6 +88,18 @@ export default function Footer() {
               </li>
               <li>
                 <a
+                  href="/security"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleNavigation("/security")
+                  }}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Security
+                </a>
+              </li>
+              <li>
+                <a
                   href="/projects"
                   onClick={(e) => {
                     e.preventDefault()

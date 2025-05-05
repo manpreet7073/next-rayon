@@ -9,14 +9,14 @@ import BookConsultationModal from "../contact/BookConsultationModal"
 export default function ServicesHero() {
   const [showModal, setShowModal] = useState(false)
     
-    
-  const handleOpenModal = () => {
+ const handleOpenModal = () => {
     setShowModal(true)
   }
 
   const handleCloseModal = () => {
     setShowModal(false)
-  }
+  }    
+ 
   return (
     <section className="relative pt-20 pb-16 overflow-hidden">
       <div className="absolute inset-0 z-0">

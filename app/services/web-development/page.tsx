@@ -42,13 +42,13 @@ export default function WebDevelopmentPage() {
       {
         title: "E-commerce Platform",
         description: "A full-featured e-commerce platform with custom product configurator and payment integration.",
-        image: "/placeholder.svg?height=600&width=800",
+        image: "/projects/p1.png?height=600&width=800",
         results: "200% increase in online sales",
       },
       {
-        title: "Corporate Website",
-        description: "A modern, responsive website for a multinational corporation with multilingual support.",
-        image: "/placeholder.svg?height=600&width=800",
+        title: "E-commerce Platform",
+        description: "A full-featured e-commerce platform with custom product configurator and payment integration.",
+        image: "/projects/p2.png?height=600&width=800",
         results: "50% increase in lead generation",
       },
     ],

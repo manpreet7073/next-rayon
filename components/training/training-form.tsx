@@ -26,6 +26,8 @@ export default function TrainingForm() {
     agreeToTerms: false,
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [datePickerOpen, setDatePickerOpen] = useState(false)
+
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -38,6 +40,7 @@ export default function TrainingForm() {
 
   const handleDateChange = (date) => {
     setFormData((prev) => ({ ...prev, date }))
+    setDatePickerOpen(false)
   }
 
   const handleCheckboxChange = (checked) => {
@@ -190,7 +193,7 @@ export default function TrainingForm() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="date">Preferred Start Date</Label>
-                  <Popover>
+                  <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"

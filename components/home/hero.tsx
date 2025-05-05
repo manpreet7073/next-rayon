@@ -5,6 +5,8 @@ import { ArrowRight } from "lucide-react"
 import dynamic from "next/dynamic"
 import { Suspense, useState, useEffect } from "react"
 import { useMobile } from "@/hooks/use-mobile"
+import Link from "next/link"
+import BookConsultationModal from "../contact/BookConsultationModal"
 
 // Dynamically import the 3D components to reduce initial bundle size
 const Scene3D = dynamic(() => import("@/components/home/hero-3d"), {
@@ -19,6 +21,8 @@ const Scene3D = dynamic(() => import("@/components/home/hero-3d"), {
 export default function Hero() {
   const isMobile = useMobile()
   const [isLoaded, setIsLoaded] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+
 
   useEffect(() => {
     // Mark component as loaded after a short delay to ensure smooth animations
@@ -27,6 +31,14 @@ export default function Hero() {
     }, 100)
     return () => clearTimeout(timer)
   }, [])
+
+  const handleOpenModal = () => {
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
 
   return (
     <div className="relative min-h-[90vh] flex items-center">
@@ -71,9 +83,10 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
-              Book a Free Consultation
+             <Button onClick={handleOpenModal} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full px-6">
+              Book a Consultation
             </Button>
+            <Link href={'/services'}>
             <Button
               variant="outline"
               className="group px-8 py-6 text-lg rounded-full border-gray-700 hover:bg-gray-800"
@@ -81,6 +94,7 @@ export default function Hero() {
               Explore Our Services
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
+            </Link>
           </motion.div>
         </div>
       </div>
@@ -99,6 +113,7 @@ export default function Hero() {
           />
         </motion.div>
       </div>
+            <BookConsultationModal showModal={showModal} onClose={handleCloseModal} />
     </div>
   )
 }

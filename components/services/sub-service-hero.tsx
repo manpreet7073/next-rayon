@@ -50,18 +50,20 @@ export default function SubServiceHero({
           <p className="text-xl text-gray-300 mb-8">{description}</p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button
-              className={`bg-gradient-to-r ${color} hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full`}
-            >
+            <Link href={'/contact'} >
+            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full">
               Get Started
             </Button>
+            </Link>
+            <Link href={'/projects'} >
             <Button
               variant="outline"
               className="group px-8 py-6 text-lg rounded-full border-gray-700 hover:bg-gray-800"
             >
-              Learn More
+               Learn More
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
+            </Link>
           </div>
         </motion.div>
       </div>
