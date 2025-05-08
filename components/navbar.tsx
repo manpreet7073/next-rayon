@@ -129,7 +129,7 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
              <Image
-              src={"/logo3.png"}
+              src={"/new-1.png"}
               alt={"logo"}
               height='200'
               width='300'

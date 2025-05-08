@@ -18,6 +18,46 @@ export const metadata: Metadata = {
   title: "Rayon Web Solutions | Your Vision, Our Code",
   description:
     "Turning Ideas into Reality - Web Development, App Development, DevOps & Cloud, UI/UX Design, LMS & Integration, QA & Automation",
+  keywords: [
+    "Rayon Web Solutions",
+    "Web Development",
+    "App Development",
+    "DevOps",
+    "Cloud Services",
+    "UI/UX Design",
+    "LMS Integration",
+    "QA Testing",
+    "Automation",
+  ],
+  authors: [{ name: "Rayon Web Solutions", url: "https://rayonweb.com" }],
+  creator: "Rayon Web Solutions",
+  publisher: "Rayon Web Solutions",
+  metadataBase: new URL("https://rayonweb.com"),
+  openGraph: {
+    title: "Rayon Web Solutions | Your Vision, Our Code",
+    description:
+      "Turning Ideas into Reality - Web Development, App Development, DevOps & Cloud, UI/UX Design, LMS & Integration, QA & Automation",
+    url: "https://rayonweb.com",
+    siteName: "Rayon Web Solutions",
+    images: [
+      {
+        url: "https://rayonweb.com/images/new-1.png",
+        width: 1200,
+        height: 630,
+        alt: "Rayon Web Solutions Banner",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rayon Web Solutions | Your Vision, Our Code",
+    description:
+      "We build cutting-edge web & app solutions tailored to your vision — from development to design, cloud, DevOps, and more.",
+    images: ["https://rayonweb.com/images/new-1.png"], // Same or separate image for Twitter
+    creator: "@rayonweb", // Optional: your Twitter handle
+  },
 }
 
 export default function RootLayout({
