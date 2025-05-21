@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Code, Smartphone, Cloud, Palette, BookOpen, TestTube, ArrowRight } from "lucide-react"
+import { Code, Smartphone, Cloud, Palette, BookOpen, TestTube, Brain, ArrowRight } from "lucide-react"
 
 const services = [
   {
@@ -76,6 +76,21 @@ const services = [
       { name: "Manual Testing", href: "/services/qa-automation/manual-testing" },
       { name: "Automated CI Tests", href: "/services/qa-automation/automated-ci-tests" },
       { name: "Performance Audits", href: "/services/qa-automation/performance-audits" },
+    ],
+  },
+  {
+    icon: <Brain className="h-10 w-10" />,
+    title: "AI & Machine Learning",
+    description:
+      "Cutting-edge AI solutions including natural language processing, computer vision, and custom ML models.",
+    href: "/services/ai-ml",
+    color: "from-blue-600 to-violet-600",
+    subServices: [
+      { name: "Natural Language Processing", href: "/services/ai-ml/natural-language-processing" },
+      { name: "LLM Integration (Langchain)", href: "/services/ai-ml/llm-integration" },
+      { name: "Hugging Face Models", href: "/services/ai-ml/hugging-face-models" },
+      { name: "Computer Vision", href: "/services/ai-ml/computer-vision" },
+      { name: "Model Training & Deployment", href: "/services/ai-ml/model-training-deployment" },
     ],
   },
 ]

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
-import { Code, Smartphone, Cloud, Palette, Clock, Users, CheckCircle } from "lucide-react"
+import { Code, Smartphone, Cloud, Palette, Clock, Users, CheckCircle, Brain } from "lucide-react"
 
 const courses = [
   {
@@ -129,6 +129,46 @@ const courses = [
       },
     ],
   },
+  {
+    category: "ai",
+    items: [
+      {
+        title: "Machine Learning & AI Fundamentals",
+        description: "Comprehensive introduction to machine learning algorithms, neural networks, and AI applications.",
+        duration: "10 weeks",
+        level: "Intermediate",
+        features: ["Supervised & unsupervised learning", "Model evaluation", "Practical applications"],
+        popular: true,
+      },
+      {
+        title: "LLM Development with Langchain",
+        description:
+          "Master building applications with Large Language Models using Langchain framework and best practices.",
+        duration: "8 weeks",
+        level: "Intermediate to Advanced",
+        features: ["Prompt engineering", "Agents & chains", "RAG implementation"],
+        popular: true,
+      },
+      {
+        title: "Hugging Face Models & Applications",
+        description:
+          "Learn to leverage pre-trained models from Hugging Face for various AI tasks and fine-tune them for specific use cases.",
+        duration: "6 weeks",
+        level: "Intermediate",
+        features: ["Model selection", "Fine-tuning", "Deployment strategies"],
+        popular: false,
+      },
+      {
+        title: "Computer Vision & Image Recognition",
+        description:
+          "Develop skills in computer vision techniques for image classification, object detection, and segmentation.",
+        duration: "8 weeks",
+        level: "Intermediate to Advanced",
+        features: ["CNN architectures", "Transfer learning", "Real-time applications"],
+        popular: true,
+      },
+    ],
+  },
 ]
 
 export default function TrainingCourses() {
@@ -149,8 +189,8 @@ export default function TrainingCourses() {
         </div>
 
         <Tabs defaultValue="web" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <div className="flex justify-center mb-10">
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-gray-900/50 p-1 rounded-xl">
+          <div className="flex justify-center mb-10 overflow-x-auto">
+            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 bg-gray-900/50 p-1 rounded-xl">
               <TabsTrigger
                 value="web"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 rounded-lg"
@@ -178,6 +218,13 @@ export default function TrainingCourses() {
               >
                 <Palette className="h-4 w-4 mr-2" />
                 UI/UX Design
+              </TabsTrigger>
+              <TabsTrigger
+                value="ai"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 rounded-lg"
+              >
+                <Brain className="h-4 w-4 mr-2" />
+                AI & ML
               </TabsTrigger>
             </TabsList>
           </div>

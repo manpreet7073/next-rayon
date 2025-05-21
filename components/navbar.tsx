@@ -6,7 +6,7 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ChevronDown, Menu, X, Code, Smartphone, Cloud, Palette, BookOpen, TestTube } from "lucide-react"
+import { ChevronDown, Menu, X, Code, Smartphone, Cloud, Palette, BookOpen, TestTube, Brain } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import BookConsultationModal from "./contact/BookConsultationModal"
 
@@ -69,6 +69,19 @@ const services = [
       { name: "Manual Testing", href: "/services/qa-automation/manual-testing" },
       { name: "Automated CI Tests", href: "/services/qa-automation/automated-ci-tests" },
       { name: "Performance Audits", href: "/services/qa-automation/performance-audits" },
+    ],
+  },
+  {
+    name: "AI & Machine Learning",
+    href: "/services/ai-ml",
+    icon: <Brain className="h-5 w-5" />,
+    subServices: [
+      { name: "Hugging Face Models", href: "/services/ai-ml/hugging-face-models" },
+      { name: "LLM Development", href: "/services/ai-ml/llm-development" },
+      { name: "Custom Model Training", href: "/services/ai-ml/custom-model-training" },
+      { name: "AI Integration", href: "/services/ai-ml/ai-integration" },
+      { name: "Computer Vision", href: "/services/ai-ml/computer-vision" },
+      { name: "Conversational AI", href: "/services/ai-ml/conversational-ai" },
     ],
   },
 ]

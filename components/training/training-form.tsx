@@ -172,6 +172,10 @@ export default function TrainingForm() {
                       <SelectItem value="mobile-apps">Mobile App Development</SelectItem>
                       <SelectItem value="devops">DevOps & Cloud Engineering</SelectItem>
                       <SelectItem value="ui-ux">UI/UX Design Masterclass</SelectItem>
+                      <SelectItem value="ml-fundamentals">Machine Learning & AI Fundamentals</SelectItem>
+                      <SelectItem value="llm-langchain">LLM Development with Langchain</SelectItem>
+                      <SelectItem value="hugging-face">Hugging Face Models & Applications</SelectItem>
+                      <SelectItem value="computer-vision">Computer Vision & Image Recognition</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
