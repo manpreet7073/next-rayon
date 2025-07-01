@@ -7,31 +7,31 @@ import { Linkedin, Twitter, Github } from "lucide-react"
 
 const team = [
   {
-    name: "Alex Johnson",
-    position: "CEO & Founder",
-    bio: "With over 15 years of experience in tech, Alex founded Rayon Web Solutions with a vision to create innovative digital solutions for businesses worldwide.",
+    name: "Arshpreet Singh",
+    position: "Co-Founder & Managing Partner",
+    bio: "With over 8 years of experience in tech, Arshpreet founded Rayon Web Solutions with a vision to create innovative digital solutions for businesses worldwide.",
     image: "/placeholder.svg?height=400&width=400",
     social: {
-      linkedin: "#",
+      linkedin: "https://www.linkedin.com/in/arshpreet-singh-4a7b7a192/",
       twitter: "#",
       github: "#",
     },
   },
   {
-    name: "Sarah Chen",
-    position: "CTO",
-    bio: "Sarah leads our technical strategy and ensures we stay at the cutting edge of technology, with expertise in cloud architecture and AI integration.",
+    name: "Manpreet Singh",
+    position: "Co-Founder & Managing Partner",
+    bio: "A visionary leader with over 8 years of experience in software engineering, Manpreet drives business strategy and oversees end-to-end technology execution at Rayon Web Solutions.",
     image: "/placeholder.svg?height=400&width=400",
     social: {
-      linkedin: "#",
+      linkedin: "https://www.linkedin.com/in/er-manpreet-singh-0a5a7a192/",
       twitter: "#",
       github: "#",
     },
   },
   {
-    name: "Michael Rodriguez",
+    name: "Ritika Sharma",
     position: "Creative Director",
-    bio: "Michael brings over a decade of design experience, leading our UI/UX team to create beautiful, functional, and user-centered digital experiences.",
+    bio: "Ritika brings a flair for innovative UI/UX design and brand storytelling, ensuring every project is visually compelling and user-centric.",
     image: "/placeholder.svg?height=400&width=400",
     social: {
       linkedin: "#",
@@ -40,9 +40,9 @@ const team = [
     },
   },
   {
-    name: "Emily Patel",
+    name: "Ankit Verma",
     position: "Head of Development",
-    bio: "Emily oversees all development projects, ensuring high-quality code, on-time delivery, and seamless implementation of client requirements.",
+    bio: "Ankit leads the development team with precision, delivering scalable solutions using modern frameworks with a focus on performance and maintainability.",
     image: "/placeholder.svg?height=400&width=400",
     social: {
       linkedin: "#",
@@ -51,9 +51,31 @@ const team = [
     },
   },
   {
-    name: "David Kim",
+    name: "Ajay Deshmukh",
+    position: "AI Specialist",
+    bio: "Ajay is the brain behind our AI innovations, leveraging machine learning, NLP, and data engineering to build intelligent solutions that drive business growth.",
+    image: "/placeholder.svg?height=400&width=400",
+    social: {
+      linkedin: "#",
+      twitter: "#",
+      github: "#",
+    },
+  },
+  {
+    name: "Anusha Reddy",
+    position: "Cybersecurity Expert",
+    bio: "Anusha ensures our systems and products are secure, compliant, and resilient, with deep expertise in ethical hacking, threat analysis, and cloud security.",
+    image: "/placeholder.svg?height=400&width=400",
+    social: {
+      linkedin: "#",
+      twitter: "#",
+      github: "#",
+    },
+  },
+  {
+    name: "Priya Nair",
     position: "DevOps Lead",
-    bio: "David specializes in cloud infrastructure, CI/CD pipelines, and ensuring our solutions are scalable, secure, and optimized for performance.",
+    bio: "Priya ensures seamless deployments, robust infrastructure, and high availability across all environments through her expertise in cloud platforms and automation tools.",
     image: "/placeholder.svg?height=400&width=400",
     social: {
       linkedin: "#",
@@ -62,9 +84,9 @@ const team = [
     },
   },
   {
-    name: "Lisa Wong",
+    name: "Rajeev Kumar",
     position: "Project Manager",
-    bio: "Lisa ensures smooth project execution, effective communication, and that all deliverables meet our high standards of quality and client expectations.",
+    bio: "Rajeev coordinates client communication, timelines, and resource allocation, ensuring every project is delivered on time and meets the highest standards.",
     image: "/placeholder.svg?height=400&width=400",
     social: {
       linkedin: "#",
@@ -72,7 +94,9 @@ const team = [
       github: "#",
     },
   },
-]
+];
+
+
 
 export default function TeamSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)

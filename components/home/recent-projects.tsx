@@ -16,10 +16,10 @@ const projects = [
     href: "/projects/ecommerce-platform",
   },
   {
-    title: "E-commerce Platform",
-    category: "Web Development",
-    description: "A full-featured e-commerce platform with custom product configurator and payment integration.",
-    image: "/projects/p4.png?height=600&width=800",
+    title: "Quizzes Platform",
+    category: "UI/UX Design",
+    description: "A full-featured quizzes platform with payment integration management.",
+    image: "/projects/p8.png?height=600&width=800",
     href: "/projects/health-fitness-app",
   },
   {
@@ -65,10 +65,15 @@ export default function RecentProjects() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-6 md:mt-0"
           >
-            <Button variant="outline" className="group rounded-full border-gray-700 hover:bg-gray-800">
+           <Link href="/projects">
+            <Button
+              variant="outline"
+              className="group rounded-full border-gray-700 hover:bg-gray-800"
+            >
               View All Projects
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
+          </Link>
           </motion.div>
         </div>
 

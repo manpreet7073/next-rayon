@@ -62,6 +62,14 @@ const projects = [
     description: "A full-featured e-commerce platform with payment integration and inventory management.",
     link: "#",
   },
+  {
+    id: 8,
+    title: "Quizzes Platform",
+    category: "UI/UX Design",
+    image: "/projects/p8.png?height=600&width=800",
+    description: "A full-featured quizzes platform with payment integration management.",
+    link: "#",
+  },
 ]
 
 export default function ProjectsGrid({ activeCategory }) {

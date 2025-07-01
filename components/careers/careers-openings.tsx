@@ -11,9 +11,9 @@ const jobOpenings = [
   {
     title: "Senior Frontend Developer",
     department: "Engineering",
-    location: "Remote",
+    location: "Mohali/Remote",
     type: "Full-time",
-    salary: "$90,000 - $120,000",
+    // salary: "$90,000 - $120,000",
     description:
       "We're looking for a Senior Frontend Developer with expertise in React, Next.js, and modern frontend technologies to join our team.",
     href: "/careers/senior-frontend-developer",
@@ -21,9 +21,9 @@ const jobOpenings = [
   {
     title: "Backend Developer",
     department: "Engineering",
-    location: "San Francisco, CA",
+    location: "Mohali/Remote",
     type: "Full-time",
-    salary: "$85,000 - $110,000",
+    // salary: "$85,000 - $110,000",
     description:
       "Join our backend team to build scalable, secure, and high-performance APIs and services using Node.js and Python.",
     href: "/careers/backend-developer",
@@ -31,9 +31,9 @@ const jobOpenings = [
   {
     title: "UI/UX Designer",
     department: "Design",
-    location: "Remote",
+    location: "Mohali/Remote",
     type: "Full-time",
-    salary: "$80,000 - $100,000",
+    // salary: "$80,000 - $100,000",
     description:
       "We're seeking a talented UI/UX Designer to create beautiful, intuitive interfaces for web and mobile applications.",
     href: "/careers/ui-ux-designer",
@@ -41,27 +41,27 @@ const jobOpenings = [
   {
     title: "DevOps Engineer",
     department: "Operations",
-    location: "New York, NY",
+    location: "Mohali/Remote",
     type: "Full-time",
-    salary: "$95,000 - $125,000",
+    // salary: "$95,000 - $125,000",
     description: "Help us build and maintain our cloud infrastructure, CI/CD pipelines, and monitoring systems.",
     href: "/careers/devops-engineer",
   },
   {
     title: "Project Manager",
     department: "Management",
-    location: "Remote",
+    location: "Mohali/Remote",
     type: "Full-time",
-    salary: "$85,000 - $110,000",
+    // salary: "$85,000 - $110,000",
     description: "Lead our project teams to deliver high-quality solutions on time and within budget.",
     href: "/careers/project-manager",
   },
   {
     title: "QA Engineer",
     department: "Engineering",
-    location: "Remote",
+    location: "Mohali/Remote",
     type: "Full-time",
-    salary: "$75,000 - $95,000",
+    // salary: "$75,000 - $95,000",
     description:
       "Join our QA team to ensure the quality and reliability of our software through manual and automated testing.",
     href: "/careers/qa-engineer",
@@ -127,10 +127,10 @@ export default function CareersOpenings() {
                   <Clock className="h-4 w-4 mr-2" />
                   <span>{job.type}</span>
                 </div>
-                <div className="flex items-center text-gray-400">
+                {/* <div className="flex items-center text-gray-400">
                   <DollarSign className="h-4 w-4 mr-2" />
                   <span>{job.salary}</span>
-                </div>
+                </div> */}
               </div>
 
               <Button
