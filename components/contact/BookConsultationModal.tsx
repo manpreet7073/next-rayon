@@ -19,16 +19,8 @@ interface BookConsultationModalProps {
   onClose: () => void
 }
 
-export default function BookConsultationModal({
-  showModal,
-  onClose,
-}: BookConsultationModalProps) {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    message: "",
-  })
+export default function BookConsultationModal({ showModal, onClose }: BookConsultationModalProps) {
+  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" })
   const [service, setService] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -37,13 +29,7 @@ export default function BookConsultationModal({
   if (!showModal) return null
 
   const validateForm = () => {
-    return (
-      form.name.trim() !== "" &&
-      form.email.includes("@") &&
-      form.company.trim() !== "" &&
-      service.trim() !== "" &&
-      form.message.trim() !== ""
-    )
+    return form.name && form.email.includes("@") && form.company && service && form.message
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,31 +42,32 @@ export default function BookConsultationModal({
     setIsLoading(true)
     setError("")
 
-    const formData = new FormData()
-    formData.append("name", form.name)
-    formData.append("email", form.email)
-    formData.append("subject", `Book Consultation [Service: ${service}]`)
-    formData.append(
-      "message",
-      `Company: ${form.company}\n\n${form.message}`
-    )
-
     try {
-      const res = await fetch("https://api.rayonweb.com/api/send-email", {
+      const payload = {
+        subject: `Book Consultation [Service: ${service}]`,
+        message: `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company}\n\n${form.message}`,
+        email: form.email, // optional reply-to
+      }
+
+      const res = await fetch("/api/send-email", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       })
 
-      if (res.ok) {
-        setIsSubmitted(true)
-        setForm({ name: "", email: "", company: "", message: "" })
-        setService("")
-      } else {
+      if (!res.ok) {
         const errorData = await res.json()
-        setError(errorData?.message || "Something went wrong.")
+        throw new Error(errorData?.message || "Something went wrong.")
       }
-    } catch (err) {
-      setError("Failed to send request. Please try again.")
+
+      setIsSubmitted(true)
+      setForm({ name: "", email: "", company: "", message: "" })
+      setService("")
+    } catch (err: any) {
+      console.error(err)
+      setError(err.message || "Failed to send request. Please try again.")
     } finally {
       setIsLoading(false)
     }
@@ -112,9 +99,7 @@ export default function BookConsultationModal({
             <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-6">
               <CheckCircle className="h-8 w-8 text-green-500" />
             </div>
-            <h3 className="text-2xl font-bold mb-4 text-center">
-              Consultation Booked!
-            </h3>
+            <h3 className="text-2xl font-bold mb-4 text-center">Consultation Booked!</h3>
             <p className="text-gray-400 text-center mb-6">
               Thank you! We'll reach out shortly to confirm your consultation.
             </p>
@@ -132,7 +117,9 @@ export default function BookConsultationModal({
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="text-sm text-gray-400 block mb-2">Your Name</label>
+                  <label htmlFor="name" className="text-sm text-gray-400 block mb-2">
+                    Your Name
+                  </label>
                   <Input
                     id="name"
                     value={form.name}
@@ -143,7 +130,9 @@ export default function BookConsultationModal({
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="text-sm text-gray-400 block mb-2">Email Address</label>
+                  <label htmlFor="email" className="text-sm text-gray-400 block mb-2">
+                    Email Address
+                  </label>
                   <Input
                     id="email"
                     type="email"
@@ -155,8 +144,11 @@ export default function BookConsultationModal({
                   />
                 </div>
               </div>
+
               <div>
-                <label htmlFor="company" className="text-sm text-gray-400 block mb-2">Company Name</label>
+                <label htmlFor="company" className="text-sm text-gray-400 block mb-2">
+                  Company Name
+                </label>
                 <Input
                   id="company"
                   value={form.company}
@@ -166,8 +158,11 @@ export default function BookConsultationModal({
                   className="bg-gray-800 border-gray-700 text-white"
                 />
               </div>
+
               <div>
-                <label htmlFor="service" className="text-sm text-gray-400 block mb-2">Service You Need</label>
+                <label htmlFor="service" className="text-sm text-gray-400 block mb-2">
+                  Service You Need
+                </label>
                 <Select onValueChange={setService}>
                   <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
                     <SelectValue placeholder="Select a service" />
@@ -183,8 +178,11 @@ export default function BookConsultationModal({
                   </SelectContent>
                 </Select>
               </div>
+
               <div>
-                <label htmlFor="message" className="text-sm text-gray-400 block mb-2">Describe Your Needs</label>
+                <label htmlFor="message" className="text-sm text-gray-400 block mb-2">
+                  Describe Your Needs
+                </label>
                 <Textarea
                   id="message"
                   value={form.message}
@@ -194,6 +192,7 @@ export default function BookConsultationModal({
                   className="bg-gray-800 border-gray-700 text-white min-h-[150px]"
                 />
               </div>
+
               <Button
                 type="submit"
                 disabled={isLoading}

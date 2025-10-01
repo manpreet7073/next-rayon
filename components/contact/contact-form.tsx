@@ -40,28 +40,33 @@ export default function ContactForm() {
     setIsLoading(true)
     setError("")
 
-    const formData = new FormData()
-    formData.append("name", form.name)
-    formData.append("email", form.email)
-    formData.append("subject", `${form.subject} [Service: ${service}]`)
-    formData.append("message", form.message)
-
     try {
-      const res = await fetch("https://api.rayonweb.com/api/send-email", {
+      // Send JSON instead of FormData
+      const payload = {
+        subject: `${form.subject} [Service: ${service}]`,
+        message: `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
+        email: form.email, // optional reply-to
+      }
+
+      const res = await fetch("/api/send-email", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       })
 
-      if (res.ok) {
-        setIsSubmitted(true)
-        setForm({ name: "", email: "", subject: "", message: "" })
-        setService("")
-      } else {
+      if (!res.ok) {
         const errorData = await res.json()
-        setError(errorData?.message || "Something went wrong.")
+        throw new Error(errorData?.message || "Something went wrong.")
       }
-    } catch (err) {
-      setError("Failed to send message. Please try again.")
+
+      setIsSubmitted(true)
+      setForm({ name: "", email: "", subject: "", message: "" })
+      setService("")
+    } catch (err: any) {
+      console.error(err)
+      setError(err.message || "Failed to send message. Please try again.")
     } finally {
       setIsLoading(false)
     }

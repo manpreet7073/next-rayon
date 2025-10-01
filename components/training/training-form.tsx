@@ -12,7 +12,6 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
 import { CalendarIcon, CheckCircle2 } from "lucide-react"
-import emailjs from '@emailjs/browser';
 
 export default function TrainingForm() {
   const [formData, setFormData] = useState({
@@ -27,69 +26,82 @@ export default function TrainingForm() {
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [datePickerOpen, setDatePickerOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
-
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSelectChange = (name, value) => {
+  const handleSelectChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date) => {
     setFormData((prev) => ({ ...prev, date }))
     setDatePickerOpen(false)
   }
 
-  const handleCheckboxChange = (checked) => {
+  const handleCheckboxChange = (checked: boolean) => {
     setFormData((prev) => ({ ...prev, agreeToTerms: checked }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    const templateParams = {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      course: formData.course,
-      experience: formData.experience,
-      message: formData.message,
-      date: formData.date ? format(formData.date, "PPP") : "Not selected",
+    if (!formData.name || !formData.email.includes("@") || !formData.course || !formData.experience || !formData.agreeToTerms) {
+      setError("Please fill in all required fields and agree to the terms.")
+      return
     }
 
-    emailjs
-      .send(
-        "service_y65a4nk",     // 🔁 Replace with your EmailJS service ID
-        "template_bvynfqg",    // 🔁 Replace with your EmailJS template ID
-        templateParams,
-        "SqT44vVqpwTb018cW"      // 🔁 Replace with your EmailJS public key
-      )
-      .then(
-        (response) => {
-          console.log("SUCCESS!", response.status, response.text)
-          setIsSubmitted(true)
-          setTimeout(() => {
-            setIsSubmitted(false)
-            setFormData({
-              name: "",
-              email: "",
-              phone: "",
-              course: "",
-              experience: "",
-              message: "",
-              date: null,
-              agreeToTerms: false,
-            })
-          }, 3000)
-        },
-        (error) => {
-          console.log("FAILED...", error)
-          alert("Something went wrong. Please try again.")
-        }
-      )
+    setIsLoading(true)
+    setError("")
+
+    const payload = {
+      subject: `Training Application: ${formData.course}`,
+      message: `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone || "N/A"}
+Course: ${formData.course}
+Experience: ${formData.experience}
+Preferred Start Date: ${formData.date ? format(formData.date, "PPP") : "Not selected"}
+Message: ${formData.message || "N/A"}
+      `,
+      email: formData.email, // optional reply-to
+    }
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+
+      if (!res.ok) {
+        const errorData = await res.json()
+        throw new Error(errorData?.message || "Failed to send request.")
+      }
+
+      setIsSubmitted(true)
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          course: "",
+          experience: "",
+          message: "",
+          date: null,
+          agreeToTerms: false,
+        })
+      }, 3000)
+    } catch (err: any) {
+      setError(err.message || "Something went wrong. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -118,12 +130,12 @@ export default function TrainingForm() {
               <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-white mb-2">Application Submitted!</h3>
               <p className="text-gray-300">
-                Thank you for your interest in our training programs. We'll contact you within 24 hours to discuss the
-                next steps.
+                Thank you for your interest in our training programs. We'll contact you within 24 hours to discuss the next steps.
               </p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="bg-gray-800 rounded-xl p-8 shadow-lg">
+              {error && <p className="text-red-500 mb-4">{error}</p>}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
@@ -181,10 +193,7 @@ export default function TrainingForm() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="experience">Experience Level</Label>
-                  <Select
-                    value={formData.experience}
-                    onValueChange={(value) => handleSelectChange("experience", value)}
-                  >
+                  <Select value={formData.experience} onValueChange={(value) => handleSelectChange("experience", value)}>
                     <SelectTrigger id="experience" className="bg-gray-700 border-gray-600">
                       <SelectValue placeholder="Select your experience" />
                     </SelectTrigger>
@@ -208,7 +217,7 @@ export default function TrainingForm() {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar mode="single" selected={formData.date} onSelect={handleDateChange} initialFocus />
+                      <Calendar mode="single" selected={formData.date} onSelect={handleDateChange} initialFocus />
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -236,9 +245,9 @@ export default function TrainingForm() {
               <Button
                 type="submit"
                 className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
-                disabled={!formData.agreeToTerms}
+                disabled={!formData.agreeToTerms || isLoading}
               >
-                Submit Application
+                {isLoading ? "Submitting..." : "Submit Application"}
               </Button>
             </form>
           )}

@@ -36,28 +36,31 @@ export default function JobApplicationForm({ jobTitle, onClose }: JobApplication
     setIsSubmitting(true)
 
     try {
-      const formPayload = new FormData()
-      formPayload.append("name", formData.name)
-      formPayload.append("email", formData.email)
-      formPayload.append("subject", `Job Application for ${jobTitle}`)
-      formPayload.append(
-        "message",
-        `Phone: ${formData.phone}\nResume: ${formData.resumeLink}\n\nCover Letter:\n${formData.coverLetter}`
-      )
+      // Prepare JSON payload instead of FormData
+      const payload = {
+        subject: `Job Application for ${jobTitle}`,
+        message: `Name: ${formData.name}\nPhone: ${formData.phone}\nResume: ${formData.resumeLink}\n\nCover Letter:\n${formData.coverLetter}`,
+        email: formData.email, // optional reply-to
+      }
 
-      const res = await fetch("https://api.rayonweb.com/api/send-email", {
+      const res = await fetch("/api/send-email", {
         method: "POST",
-        body: formPayload,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       })
 
       if (!res.ok) {
-        throw new Error("Failed to send email")
+        const errorData = await res.json()
+        throw new Error(errorData?.message || "Failed to send email")
       }
 
       setIsSubmitted(true)
       toast({
         title: "Application Submitted",
-        description: "Your application has been successfully submitted. We'll be in touch soon!",
+        description:
+          "Your application has been successfully submitted. We'll be in touch soon!",
       })
 
       setTimeout(() => {
@@ -72,11 +75,12 @@ export default function JobApplicationForm({ jobTitle, onClose }: JobApplication
         setIsSubmitting(false)
         onClose()
       }, 2000)
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
       toast({
         title: "Submission Failed",
-        description: "There was an error submitting your application. Please try again.",
+        description:
+          error?.message || "There was an error submitting your application. Please try again.",
         variant: "destructive",
       })
       setIsSubmitting(false)
