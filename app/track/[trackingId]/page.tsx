@@ -40,7 +40,7 @@ export default function TrackingPage() {
     to: "Ganganagar, Rajasthan",
     currentLocation: "Bathinda",
     status: "Dispatched from origin facility",
-    estimatedDelivery: "7th November 2025",
+    estimatedDelivery: "14th November 2025",
     primaryAddress: "55 Pineer *****, Ganganagar, Rajasthan – 335001, India",
     alternateAddress: "6 GMD *****, Ganganagar, Rajasthan",
     currentStage: "in-transit",
