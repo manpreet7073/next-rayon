@@ -38,7 +38,7 @@ export default function TrackingPage() {
     weight: "5 KG",
     from: "Mohali, Punjab",
     to: "Ganganagar, Rajasthan",
-    currentLocation: "Bathinda",
+    currentLocation: "Hanumangarh",
     status: "Dispatched from origin facility",
     estimatedDelivery: "14th November 2025",
     primaryAddress: "55 Pineer *****, Ganganagar, Rajasthan – 335001, India",
