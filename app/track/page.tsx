@@ -75,11 +75,6 @@ export default function TrackPage() {
                 info@rayonweb.com
               </a>
             </p>
-
-            {/* New Note */}
-            <p className="text-xs text-yellow-400">
-              ⚠️ Please share your <strong>working phone number</strong> or an <strong>alternate contact number</strong> to ensure smooth delivery.
-            </p>
           </div>
         </Card>
       </div>

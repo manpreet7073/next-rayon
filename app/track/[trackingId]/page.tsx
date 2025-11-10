@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
 import ShipmentProgressBar from "@/components/shipment-progress-bar"
 import ShipmentRoute from "@/components/shipment-route"
-import { Mail, X, AlertCircle, ArrowLeft } from "lucide-react"
+import { Mail, X, AlertCircle, ArrowLeft, Phone } from "lucide-react"
 import CancelModal from "@/components/cancel-modal"
 
 export default function TrackingPage() {
@@ -50,7 +50,7 @@ export default function TrackingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 py-12 px-4">
       <div className="max-w-2xl mx-auto">
-        {/* Header with Back Button */}
+        {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2">Track Your Shipment</h1>
@@ -67,27 +67,27 @@ export default function TrackingPage() {
           </button>
         </div>
 
-        {/* Status Message */}
+        {/* Status */}
         <Card className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 p-4 mb-6">
           <p className="text-gray-100">
             Your order has been dispatched from Mohali and is currently en route to Ganganagar, Rajasthan.
           </p>
         </Card>
 
-        {/* Progress Bar */}
+        {/* Progress */}
         <div className="mb-8">
           <h2 className="text-lg font-semibold text-white mb-4">Shipment Progress</h2>
           <ShipmentProgressBar currentStage={trackingData.currentStage} />
         </div>
 
+        {/* Route */}
         <div className="mb-8">
           <h2 className="text-lg font-semibold text-white mb-4">Shipment Route</h2>
           <ShipmentRoute route={trackingData.shipmentRoute} currentLocation={trackingData.currentLocation} />
         </div>
 
-        {/* Main Details */}
+        {/* Shipment Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          {/* Shipment Details Card */}
           <Card className="glass-card p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Shipment Details</h3>
             <div className="space-y-3">
@@ -110,7 +110,6 @@ export default function TrackingPage() {
             </div>
           </Card>
 
-          {/* Route Details Card */}
           <Card className="glass-card p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Route</h3>
             <div className="space-y-6">
@@ -129,40 +128,65 @@ export default function TrackingPage() {
           </Card>
         </div>
 
-        {/* Delivery Addresses */}
+        {/* Addresses */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          {/* Primary Address */}
           <Card className="glass-card p-6">
             <h3 className="text-lg font-semibold text-white mb-2">Primary Delivery Address</h3>
             <p className="text-gray-300 text-sm leading-relaxed">{trackingData.primaryAddress}</p>
           </Card>
 
-          {/* Alternate Address */}
           <Card className="glass-card p-6">
             <h3 className="text-lg font-semibold text-white mb-2">Alternate Delivery Address</h3>
             <p className="text-gray-300 text-sm leading-relaxed">{trackingData.alternateAddress}</p>
           </Card>
         </div>
 
-        {/* Contact Footer */}
+        {/* Contact Details */}
+        <Card className="glass-card p-6 border-l-4 border-l-blue-500 mb-6">
+          <div className="space-y-3">
+            <h3 className="text-white font-semibold mb-1 flex items-center gap-2">
+              <Phone className="w-4 h-4 text-blue-500" />
+              Contact Details
+            </h3>
+
+            <p className="text-gray-300 text-sm">
+              Receiver Phone: <span className="text-white font-medium">99***4**70</span>
+            </p>
+
+            <p className="text-gray-300 text-sm">
+              Sender Phone: <span className="text-white font-medium">97***70*41</span>
+            </p>
+
+            <p className="text-gray-300 text-sm">
+              Receiver Email: <span className="text-white font-medium">shik*****@gmail.com</span>
+            </p>
+          </div>
+        </Card>
+
+        {/* Need Help / Unavailability Notice */}
         <Card className="glass-card p-6 border-l-4 border-l-purple-500 mb-6">
           <div className="flex items-start gap-3">
             <Mail className="w-5 h-5 text-purple-500 mt-1 flex-shrink-0" />
-            <div>
-              <h3 className="text-white font-semibold mb-1">Need Help?</h3>
-              <p className="text-gray-400 text-sm">
-                Contact us at{" "}
+            <div className="space-y-2">
+              <div className="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-lg mt-2">
+                <p className="text-yellow-400 text-sm flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4" />
+                  If you will be unavailable to receive this order, please notify us at:
+                </p>
+
+                {/* ✅ Clickable mailto link */}
                 <a
-                  href="mailto:support@shipment-desk.com"
-                  className="text-purple-400 hover:text-purple-300 transition-colors"
+                  href={`mailto:info@rayonweb.com?subject=Unavailability Notice&body=I will be unavailable to receive order ${trackingId}.`}
+                  className="text-white text-sm font-medium underline hover:text-purple-300 mt-1 inline-block"
                 >
-                  support@shipment-desk.com
+                  info@rayonweb.com
                 </a>
-              </p>
+              </div>
             </div>
           </div>
         </Card>
 
+        {/* Cancel Button */}
         <button
           onClick={() => setShowCancelModal(true)}
           className="w-full py-3 px-4 bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 hover:text-red-300 font-semibold rounded-lg transition-all flex items-center justify-center gap-2"
@@ -172,7 +196,12 @@ export default function TrackingPage() {
         </button>
       </div>
 
-      <CancelModal isOpen={showCancelModal} onClose={() => setShowCancelModal(false)} />
+      {/* ✅ Pass trackingId into modal */}
+      <CancelModal
+        isOpen={showCancelModal}
+        onClose={() => setShowCancelModal(false)}
+        orderId={trackingId}
+      />
     </div>
   )
 }
