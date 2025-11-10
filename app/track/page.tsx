@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
@@ -69,12 +68,17 @@ export default function TrackPage() {
           </form>
 
           {/* Helper Text */}
-          <div className="mt-6 pt-6 border-t border-gray-700">
+          <div className="mt-6 pt-6 border-t border-gray-700 space-y-2">
             <p className="text-xs text-gray-500">
               Need help? Contact us at{" "}
-              <a href="mailto:support@shipment-desk.com" className="text-purple-400 hover:text-purple-300">
-                support@shipment-desk.com
+              <a href="mailto:info@rayonweb.com" className="text-purple-400 hover:text-purple-300">
+                info@rayonweb.com
               </a>
+            </p>
+
+            {/* New Note */}
+            <p className="text-xs text-yellow-400">
+              ⚠️ Please share your <strong>working phone number</strong> or an <strong>alternate contact number</strong> to ensure smooth delivery.
             </p>
           </div>
         </Card>
