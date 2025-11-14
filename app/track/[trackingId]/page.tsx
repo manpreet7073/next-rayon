@@ -43,7 +43,7 @@ export default function TrackingPage() {
     estimatedDelivery: "14th November 2025",
     primaryAddress: "55 Pineer *****, Ganganagar, Rajasthan – 335001, India",
     alternateAddress: "6 GMD *****, Ganganagar, Rajasthan",
-    currentStage: "in-transit",
+    currentStage: "out-for-delivery",
     shipmentRoute: ["Mohali", "Bathinda", "Hanumangarh", "Ganganagar"],
   }
 
