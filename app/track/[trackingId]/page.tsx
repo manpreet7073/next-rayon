@@ -69,9 +69,12 @@ export default function TrackingPage() {
 
         {/* Status */}
         <Card className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 p-4 mb-6">
-          <p className="text-gray-100">
-            Your order has been dispatched from Mohali and is currently en route to Ganganagar, Rajasthan.
+         <p className="text-gray-100">
+            Your order is on the way. The scan has been completed successfully and it is ready for the next movement. 
+            We will attempt delivery up to 2 times. If both attempts fail, your order may be cancelled or redirected to an alternate address. 
+            Please be available to receive the shipment.
           </p>
+
         </Card>
 
         {/* Progress */}
